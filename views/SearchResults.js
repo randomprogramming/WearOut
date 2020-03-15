@@ -1,15 +1,21 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import axios from 'axios';
+
 import CONSTANTS from '../global_state/constants';
 import SearchTab from '../components/Search/SearchTab';
 
-const SearchResults = () => {
+const SearchResults = ({searchValue}) => {
   const [currentActiveTabId, setcurrentActiveTabId] = useState(1);
+  const [currentData, setcurrentData] = useState([]);
 
   const TABS = [
     {
       id: 1,
       tabText: 'Streetwear',
+      dataFetchUrl: function(searchValue) {
+        return `https://stockx.com/api/browse?&_search=${searchValue}`;
+      },
     },
     {
       id: 2,
@@ -22,6 +28,34 @@ const SearchResults = () => {
       setcurrentActiveTabId(tabId);
     }
   };
+
+  const findActiveTabUrl = () => {
+    //Find the first tab where the id matches the current active tab id, then call that tabs dataFetchUrl function and return the result
+    return TABS.find(tab => tab.id === currentActiveTabId).dataFetchUrl(
+      searchValue,
+    );
+  };
+
+  const extractData = allProducts => {
+    let extractedDataProducts = [];
+
+    extractedDataProducts = allProducts.map(product => {
+      return {
+        id: product.id,
+        uuid: product.uuid,
+        brand: product.brand,
+        imageUrl: product.media.thumbUrl,
+        name: product.name,
+        title: product.title,
+        colorway: product.colorway,
+      };
+    });
+    console.log(extractedDataProducts);
+  };
+
+  useEffect(() => {
+    // axios.get(findActiveTabUrl()).then(res => extractData(res.data.Products));
+  }, [searchValue]);
 
   return (
     <View>
@@ -37,6 +71,11 @@ const SearchResults = () => {
             activeTabStyle={styles.activeTabStyle}
           />
         ))}
+      </View>
+      <View>
+        <ScrollView>
+          <Text>Hi</Text>
+        </ScrollView>
       </View>
     </View>
   );

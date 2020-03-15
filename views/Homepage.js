@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, ScrollView, StatusBar} from 'react-native';
-import axios from 'axios';
+import {StyleSheet, View, Text, StatusBar} from 'react-native';
 
 import LogoHeader from '../components/LogoHeader';
 import SearchBar from '../components/Search/SearchBar';
@@ -19,14 +18,6 @@ export const Homepage = () => {
     setsearchValue('');
   };
 
-  useEffect(() => {
-    // if (searchValue.length !== 0) {
-    //   axios
-    //     .get(`https://stockx.com/api/browse?&_search=${searchValue}`)
-    //     .then(res => console.log(res.data.Products));
-    // }
-  }, [searchValue]);
-
   return (
     <View style={styles.mainContainer}>
       <StatusBar backgroundColor={CONSTANTS.BLACK_BACKGROUND} />
@@ -43,7 +34,7 @@ export const Homepage = () => {
         </View>
         <View>
           {searchValue.length === 0 ? (
-            <Text style={{color: 'white'}}>Content Text</Text>
+            <Text style={{color: 'white'}}>User Feed</Text>
           ) : (
             <SearchResults searchValue={searchValue} />
           )}
