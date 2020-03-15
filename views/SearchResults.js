@@ -4,10 +4,22 @@ import axios from 'axios';
 
 import CONSTANTS from '../global_state/constants';
 import SearchTab from '../components/Search/SearchTab';
+import Result from '../components/Search/Result';
 
 const SearchResults = ({searchValue}) => {
   const [currentActiveTabId, setcurrentActiveTabId] = useState(1);
-  const [currentData, setcurrentData] = useState([]);
+  const [currentData, setcurrentData] = useState([
+    // {
+    //   id: '',
+    //   uuid: '',
+    //   brand: '',
+    //   imageUrl: '',
+    //   name: '',
+    //   title: '',
+    //   colorway: '',
+    //   hasLargePicture: undefined,
+    // },
+  ]);
 
   const TABS = [
     {
@@ -48,13 +60,14 @@ const SearchResults = ({searchValue}) => {
         name: product.name,
         title: product.title,
         colorway: product.colorway,
+        hasLargePicture: true,
       };
     });
-    console.log(extractedDataProducts);
+    setcurrentData(extractedDataProducts);
   };
 
   useEffect(() => {
-    // axios.get(findActiveTabUrl()).then(res => extractData(res.data.Products));
+    axios.get(findActiveTabUrl()).then(res => extractData(res.data.Products));
   }, [searchValue]);
 
   return (
@@ -74,7 +87,16 @@ const SearchResults = ({searchValue}) => {
       </View>
       <View>
         <ScrollView>
-          <Text>Hi</Text>
+          {currentData.map(item => (
+            <Result
+              key={item.id}
+              title={item.title}
+              brand={item.brand}
+              description={item.colorway}
+              imageUrl={item.imageUrl}
+              hasLargePicture={item.hasLargePicture}
+            />
+          ))}
         </ScrollView>
       </View>
     </View>
