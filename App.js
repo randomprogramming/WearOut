@@ -8,22 +8,28 @@ import {
   StatusBar,
 } from 'react-native';
 
+import {BACKGROUND_COLOR_DARK} from './global_state/constants';
+import SearchBar from './components/SearchBar';
+import {Homepage} from './views/Homepage';
+
 const App = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safeArea}>
       {/* If the user is authenticated in the redux store, show the homepage, else show the
        login/register page*/}
-      <View>
-        <Text style={styles.text}>Hello World, HELLO WORLD!</Text>
+      <View style={styles.main}>
+        <Homepage />
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 32,
-    fontFamily: 'Montserrat-Regular',
+  safeArea: {
+    flex: 1,
+  },
+  main: {
+    flex: 1,
   },
 });
 
