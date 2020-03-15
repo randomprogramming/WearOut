@@ -13,11 +13,13 @@ const SearchBar = ({inputHandler, value, deleteHandler}) => {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Search streetwear or people..."
+          placeholder="Search streetwear or accounts"
           placeholderTextColor={CONSTANTS.TEXT_COLOR}
           selectionColor={CONSTANTS.ACCENT_COLOR}
           style={styles.input}
           value={value}
+          autoCapitalize="none"
+          autoCorrect={false}
           onChangeText={newText => {
             inputHandler(newText);
           }}
