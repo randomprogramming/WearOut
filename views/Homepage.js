@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text, ScrollView} from 'react-native';
 import LogoHeader from '../components/LogoHeader';
 import SearchBar from '../components/SearchBar';
+import CONSTANTS from '../global_state/constants';
 
 export const Homepage = () => {
   return (
@@ -26,6 +27,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    backgroundColor: '#141313',
+    backgroundColor: CONSTANTS.LIGHT_BACKGROUND,
   },
 });

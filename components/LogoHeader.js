@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   logo: {
     color: CONSTANTS.ACCENT_COLOR,
     fontSize: 32,
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: CONSTANTS.FONT_BOLD,
   },
 });
 
