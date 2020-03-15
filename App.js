@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import {BACKGROUND_COLOR_DARK} from './global_state/constants';
-import SearchBar from './components/SearchBar';
+import SearchBar from './components/Search/SearchBar';
 import {Homepage} from './views/Homepage';
 
 const App = () => {

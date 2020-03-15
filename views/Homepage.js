@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, ScrollView, StatusBar} from 'react-native';
 import axios from 'axios';
 
 import LogoHeader from '../components/LogoHeader';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/Search/SearchBar';
 import CONSTANTS from '../global_state/constants';
 import SearchResults from './SearchResults';
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import CONSTANTS from '../global_state/constants';
-import SearchTab from '../components/SearchTab';
+import SearchTab from '../components/Search/SearchTab';
 
 const SearchResults = () => {
   const [currentActiveTabId, setcurrentActiveTabId] = useState(1);
@@ -38,7 +38,6 @@ const SearchResults = () => {
           />
         ))}
       </View>
-      <Text>Hi</Text>
     </View>
   );
 };
@@ -47,7 +46,6 @@ const styles = StyleSheet.create({
   searchSelector: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    // marginVertical: 15,
   },
   text: {
     color: CONSTANTS.TEXT_COLOR,

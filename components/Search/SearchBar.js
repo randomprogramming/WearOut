@@ -3,7 +3,7 @@ import {View, TextInput, StyleSheet} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/dist/Feather';
 import MaterialIcon from 'react-native-vector-icons/dist/MaterialIcons';
 
-import CONSTANTS from '../global_state/constants';
+import CONSTANTS from '../../global_state/constants';
 
 const SearchBar = ({inputHandler, value, deleteHandler}) => {
   return (
