@@ -31,8 +31,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginTop: 25,
     borderBottomColor: CONSTANTS.TEXT_COLOR,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     paddingBottom: 7,
+    flex: 1,
   },
   imageBrandContainer: {
     maxWidth: 84,

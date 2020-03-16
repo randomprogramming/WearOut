@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
 import axios from 'axios';
 
 import CONSTANTS from '../global_state/constants';
@@ -48,26 +48,35 @@ const SearchResults = ({searchValue}) => {
     );
   };
 
-  const extractData = allProducts => {
+  const extractData = (allProducts, hasLargePicture) => {
     let extractedDataProducts = [];
+    let seenIds = [];
 
-    extractedDataProducts = allProducts.map(product => {
-      return {
-        id: product.id,
-        uuid: product.uuid,
-        brand: product.brand,
-        imageUrl: product.media.thumbUrl,
-        name: product.name,
-        title: product.title,
-        colorway: product.colorway,
-        hasLargePicture: true,
-      };
+    // For each product that we fetch, store it into the extracted data products and check for duplicates
+    allProducts.forEach(product => {
+      if (!seenIds.includes(product.id)) {
+        seenIds.push(product.id);
+        extractedDataProducts.push({
+          id: product.id,
+          uuid: product.uuid,
+          brand: product.brand,
+          imageUrl: product.media.thumbUrl,
+          name: product.name,
+          title: product.title,
+          colorway: product.colorway,
+          hasLargePicture,
+        });
+      }
     });
+    
     setcurrentData(extractedDataProducts);
   };
 
   useEffect(() => {
-    axios.get(findActiveTabUrl()).then(res => extractData(res.data.Products));
+    // Whenever the searchValue changes, make a request to the stockx search api and extract the data that we get from that
+    axios
+      .get(findActiveTabUrl())
+      .then(res => extractData(res.data.Products, true));
   }, [searchValue]);
 
   return (
