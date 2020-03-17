@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Keyboard } from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 import { COLORS, FONTS } from '../../global_state/constants';
 
-const SearchBar = ({ handleInputChange }) => {
+const SearchBar = ({ handleInputChange, placeholderText }) => {
   const [currentInput, setcurrentInput] = useState('');
 
   const onInputChange = newText => {
@@ -13,6 +13,11 @@ const SearchBar = ({ handleInputChange }) => {
 
   const handleDelete = () => {
     setcurrentInput('');
+  };
+
+  const handleCancel = () => {
+    setcurrentInput('');
+    Keyboard.dismiss();
   };
 
   useEffect(() => {
@@ -27,6 +32,7 @@ const SearchBar = ({ handleInputChange }) => {
       </View>
       <View style={styles.searchBarContainer}>
         <TextInput
+          placeholder={placeholderText}
           style={styles.searchBarInput}
           autoCorrect={false}
           selectionColor={COLORS.ACCENT_COLOR}
@@ -40,10 +46,12 @@ const SearchBar = ({ handleInputChange }) => {
             color={COLORS.TEXT_COLOR}
             backgroundColor="transparent"
             underlayColor="transparent"
+            marginRight={-7}
             style={
-              (styles.deleteIcon,
               // Hide the button if there is no text
-              { display: currentInput.length === 0 ? 'none' : 'flex' })
+              {
+                display: currentInput.length === 0 ? 'none' : 'flex',
+              }
             }
             onPress={e => {
               handleDelete();
@@ -52,7 +60,13 @@ const SearchBar = ({ handleInputChange }) => {
         </View>
       </View>
       <View>
-        <Text>Cancel</Text>
+        <Text
+          style={styles.cancelButton}
+          onPress={e => {
+            handleCancel();
+          }}>
+          Cancel
+        </Text>
       </View>
     </View>
   );
@@ -74,14 +88,16 @@ const styles = StyleSheet.create({
   deleteIconcontainer: {
     alignSelf: 'center',
   },
-  deleteIcon: {
-    marginRight: -7,
-    display: 'none',
-  },
   searchBarInput: {
     flex: 1,
     paddingVertical: 3,
     paddingHorizontal: 7,
+    color: COLORS.TEXT_COLOR,
+    fontFamily: FONTS.REGULAR,
+    fontSize: 16,
+  },
+  cancelButton: {
+    fontSize: 16,
     color: COLORS.TEXT_COLOR,
     fontFamily: FONTS.REGULAR,
   },

@@ -14,7 +14,10 @@ const Search = () => {
   return (
     <View style={styles.main}>
       <View>
-        <SearchBar handleInputChange={handleSearchInputChange} />
+        <SearchBar
+          handleInputChange={handleSearchInputChange}
+          placeholderText="Search streetwear or accounts"
+        />
       </View>
       <Text>{searchInput}</Text>
     </View>
