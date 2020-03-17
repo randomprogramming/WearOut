@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import CONSTANTS from './global_state/constants';
+import { View, Text, StyleSheet } from 'react-native';
+import { COLORS } from './global_state/constants';
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: CONSTANTS.MAIN_BACKGROUND,
+    backgroundColor: COLORS.MAIN_BACKGROUND,
   },
 });
 

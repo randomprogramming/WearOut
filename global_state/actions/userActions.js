@@ -1,10 +1,10 @@
-import {CHANGE_USER} from '../constants';
+import { ACTIONS } from '../constants';
 
 const changeUser = user => {
   return {
-    type: CHANGE_USER,
+    type: ACTIONS.CHANGE_USER,
     payload: user,
   };
 };
 
-export default {changeUser};
+export default { changeUser };

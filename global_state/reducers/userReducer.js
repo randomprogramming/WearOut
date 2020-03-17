@@ -1,4 +1,4 @@
-import {CHANGE_USER} from '../constants';
+import { ACTIONS } from '../constants';
 
 const initialState = {
   username: undefined,
@@ -8,7 +8,7 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHANGE_USER:
+    case ACTIONS.CHANGE_USER:
       return {
         username: action.payload.username,
         isAuthenticated: action.payload.username.length > 0,
