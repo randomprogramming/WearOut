@@ -1,5 +1,6 @@
 const COLORS = {
   MAIN_BACKGROUND: '#fff',
+  BACKGROUND_DARKER: '#ececec',
   ACCENT_COLOR: '#ff7e30',
   TEXT_COLOR: '#353535',
 };

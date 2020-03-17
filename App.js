@@ -48,17 +48,14 @@ const App = () => {
           }
         },
       })}
-      tabBarOptions={{ showLabel: false }}>
+      tabBarOptions={{
+        showLabel: false,
+        style: { backgroundColor: COLORS.BACKGROUND_DARKER },
+      }}>
       <Tab.Screen name={SCREEN_NAMES.HOME} component={Homescreen} />
       <Tab.Screen name={SCREEN_NAMES.SEARCH} component={Search} />
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  main: {
-    backgroundColor: COLORS.MAIN_BACKGROUND,
-  },
-});
 
 export default App;
