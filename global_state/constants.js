@@ -11,5 +11,9 @@ const FONTS = {
 const ACTIONS = {
   CHANGE_USER: 'CHANGE_USER',
 };
+const SCREEN_NAMES = {
+  HOME: 'Home',
+  SEARCH: 'Search',
+};
 
-export { COLORS, FONTS, ACTIONS };
+export { COLORS, FONTS, ACTIONS, SCREEN_NAMES };
