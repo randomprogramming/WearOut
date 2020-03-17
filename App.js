@@ -1,35 +1,18 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-import {BACKGROUND_COLOR_DARK} from './global_state/constants';
-import SearchBar from './components/Search/SearchBar';
-import {Homepage} from './views/Homepage';
+import {View, Text, StyleSheet} from 'react-native';
+import CONSTANTS from './global_state/constants';
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.safeArea}>
-      {/* If the user is authenticated in the redux store, show the homepage, else show the
-       login/register page*/}
-      <View style={styles.main}>
-        <Homepage />
-      </View>
-    </SafeAreaView>
+    <View style={styles.main}>
+      <Text>Hello world</Text>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
   main: {
-    flex: 1,
+    backgroundColor: CONSTANTS.MAIN_BACKGROUND,
   },
 });
 
