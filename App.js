@@ -7,7 +7,7 @@ import { COLORS, SCREEN_NAMES } from './global_state/constants';
 import Homescreen from './views/Homescreen';
 import Search from './views/Search';
 
-const Tab = createBottomTabNavigator();
+const MainTab = createBottomTabNavigator();
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
         backgroundColor={COLORS.MAIN_BACKGROUND}
         barStyle="dark-content"
       />
-      <Tab.Navigator
+      <MainTab.Navigator
         initialRouteName={SCREEN_NAMES.HOME}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -58,9 +58,9 @@ const App = () => {
           keyboardHidesTabBar: true,
           style: { backgroundColor: COLORS.BACKGROUND_DARKER },
         }}>
-        <Tab.Screen name={SCREEN_NAMES.HOME} component={Homescreen} />
-        <Tab.Screen name={SCREEN_NAMES.SEARCH} component={Search} />
-      </Tab.Navigator>
+        <MainTab.Screen name={SCREEN_NAMES.HOME} component={Homescreen} />
+        <MainTab.Screen name={SCREEN_NAMES.SEARCH} component={Search} />
+      </MainTab.Navigator>
     </View>
   );
 };

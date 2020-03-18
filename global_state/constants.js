@@ -11,10 +11,13 @@ const FONTS = {
 };
 const ACTIONS = {
   CHANGE_USER: 'CHANGE_USER',
+  SET_SEARCH_VALUE: 'SET_SEARCH_VALUE',
 };
 const SCREEN_NAMES = {
   HOME: 'Home',
   SEARCH: 'Search',
+  STREETWEAR_RESULTS: 'Streetwear',
+  PEOPLE_RESULTS: 'People',
 };
 
 export { COLORS, FONTS, ACTIONS, SCREEN_NAMES };

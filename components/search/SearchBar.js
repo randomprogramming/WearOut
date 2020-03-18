@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TextInput, Keyboard } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
-import { COLORS, FONTS } from '../../global_state/constants';
+import { COLORS, FONTS, ACTIONS } from '../../global_state/constants';
 
-const SearchBar = ({ handleInputChange, placeholderText }) => {
-  const [currentInput, setcurrentInput] = useState('');
+const SearchBar = ({ placeholderText }) => {
+  const dispatch = useDispatch();
+  const currentInput = useSelector(state => state.search);
 
-  const onInputChange = newText => {
-    setcurrentInput(newText);
+  const onInputChange = newInput => {
+    dispatch({ type: ACTIONS.SET_SEARCH_VALUE, payload: newInput });
   };
 
   const handleDelete = () => {
-    setcurrentInput('');
+    dispatch({ type: ACTIONS.SET_SEARCH_VALUE, payload: '' });
   };
 
   const handleCancel = () => {
-    setcurrentInput('');
+    dispatch({ type: ACTIONS.SET_SEARCH_VALUE, payload: '' });
     Keyboard.dismiss();
   };
-
-  useEffect(() => {
-    // When the input changes, we also need to tell the parent component that the input changed
-    handleInputChange(currentInput);
-  }, [currentInput]);
 
   return (
     <View style={styles.main}>
@@ -60,6 +57,7 @@ const SearchBar = ({ handleInputChange, placeholderText }) => {
         </View>
       </View>
       <View>
+        {/* TODO: Hide the cancel button if user isn't typing, and give the search bar a animation for that */}
         <Text
           style={styles.cancelButton}
           onPress={e => {
