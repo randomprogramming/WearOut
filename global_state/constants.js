@@ -19,5 +19,10 @@ const SCREEN_NAMES = {
   STREETWEAR_RESULTS: 'Streetwear',
   PEOPLE_RESULTS: 'People',
 };
+const SERVER_ADDRESS = 'http://192.168.1.100:8080';
+const API = {
+  test: SERVER_ADDRESS + '/api/test',
+  getMe: SERVER_ADDRESS + '/api/me',
+};
 
-export { COLORS, FONTS, ACTIONS, SCREEN_NAMES };
+export { COLORS, FONTS, ACTIONS, SCREEN_NAMES, API };
