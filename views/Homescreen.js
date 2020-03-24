@@ -12,10 +12,6 @@ const MainTab = createBottomTabNavigator();
 const Homescreen = () => {
   return (
     <View style={styles.main}>
-      <StatusBar
-        backgroundColor={COLORS.MAIN_BACKGROUND}
-        barStyle="dark-content"
-      />
       <MainTab.Navigator
         initialRouteName={SCREEN_NAMES.HOME}
         screenOptions={({ route }) => ({

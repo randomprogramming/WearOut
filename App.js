@@ -85,7 +85,13 @@ const App = () => {
     //     <MainTab.Screen name={SCREEN_NAMES.SEARCH} component={Search} />
     //   </MainTab.Navigator>
     // </View>
-    userData.isAuthenticated ? <Homescreen /> : <Login />
+    <View style={styles.main}>
+      <StatusBar
+        backgroundColor={COLORS.MAIN_BACKGROUND}
+        barStyle="dark-content"
+      />
+      {userData.isAuthenticated ? <Homescreen /> : <Login />}
+    </View>
   );
 };
 

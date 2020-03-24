@@ -18,18 +18,26 @@ const CustomButton = ({ pressHandler, title, buttonStyle, textStyle }) => {
 
 const styles = StyleSheet.create({
   touchableContainer: {
-    paddingVertical: 7,
-    paddingHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
     borderRadius: 7,
     borderColor: COLORS.ACCENT_COLOR,
     borderWidth: 1,
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     backgroundColor: COLORS.ACCENT_COLOR,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   defaultTextStyle: {
     fontSize: 16,
     fontFamily: FONTS.BOLD,
-    color: COLORS.BACKGROUND_DARKER,
+    color: COLORS.MAIN_BACKGROUND,
     textTransform: 'uppercase',
   },
 });

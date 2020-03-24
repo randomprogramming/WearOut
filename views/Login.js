@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { COLORS, FONTS } from '../global_state/constants';
@@ -6,8 +6,12 @@ import InputField from '../components/input/InputField';
 import CustomButton from '../components/input/CustomButton';
 
 const Login = () => {
+  const [usernameInput, setusernameInput] = useState('');
+  const [passwordInput, setpasswordInput] = useState('');
+
   const loginHandler = () => {
-    console.log('Login');
+    // When the user presses the login button this function gets called
+    console.log('LOGIN');
   };
 
   return (
@@ -17,10 +21,16 @@ const Login = () => {
       </View>
       <View>
         <View style={styles.inputContainer}>
-          <InputField placeholderText="Username" />
+          <InputField
+            placeholderText="Username"
+            textChangeHandler={newInput => setusernameInput(newInput)}
+          />
         </View>
         <View style={styles.inputContainer}>
-          <InputField placeholderText="Password" />
+          <InputField
+            placeholderText="Password"
+            textChangeHandler={newInput => setpasswordInput(newInput)}
+          />
         </View>
       </View>
       <View>
@@ -33,7 +43,7 @@ const Login = () => {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: COLORS.BACKGROUND_DARKER,
+    backgroundColor: COLORS.MAIN_BACKGROUND,
     justifyContent: 'center',
   },
   logoContainer: {
