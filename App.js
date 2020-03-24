@@ -10,6 +10,7 @@ import UserFeed from './views/UserFeed';
 import Search from './views/Search';
 import Homescreen from './views/Homescreen';
 import Login from './views/Login';
+import LoginRegisterStackPage from './views/LoginRegisterStackPage';
 
 const MainTab = createBottomTabNavigator();
 
@@ -90,7 +91,7 @@ const App = () => {
         backgroundColor={COLORS.MAIN_BACKGROUND}
         barStyle="dark-content"
       />
-      {userData.isAuthenticated ? <Homescreen /> : <Login />}
+      {userData.isAuthenticated ? <Homescreen /> : <LoginRegisterStackPage />}
     </View>
   );
 };

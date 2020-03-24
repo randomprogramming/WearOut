@@ -18,6 +18,8 @@ const SCREEN_NAMES = {
   SEARCH: 'Search',
   STREETWEAR_RESULTS: 'Streetwear',
   PEOPLE_RESULTS: 'People',
+  LOGIN: 'Login',
+  REGISTER: 'Register',
 };
 const SERVER_ADDRESS = 'http://192.168.1.100:8080';
 const API = {

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import { COLORS, FONTS } from '../global_state/constants';
+import { COLORS, FONTS, SCREEN_NAMES } from '../global_state/constants';
 import InputField from '../components/input/InputField';
 import CustomButton from '../components/input/CustomButton';
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [usernameInput, setusernameInput] = useState('');
   const [passwordInput, setpasswordInput] = useState('');
 
@@ -34,7 +34,12 @@ const Login = () => {
         </View>
       </View>
       <View>
-        <CustomButton pressHandler={loginHandler} title="Login" />
+        <CustomButton onPress={loginHandler} title="Login" />
+      </View>
+      <View>
+        <Text onPress={() => navigation.navigate(SCREEN_NAMES.REGISTER)}>
+          Register here
+        </Text>
       </View>
     </View>
   );
