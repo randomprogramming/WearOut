@@ -30,6 +30,7 @@ const Login = ({ navigation }) => {
         </View>
         <View style={styles.inputContainer}>
           <InputField
+            isSecure
             placeholderText="Password"
             textChangeHandler={newInput => setpasswordInput(newInput)}
           />

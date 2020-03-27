@@ -3,7 +3,11 @@ import { View, StyleSheet, TextInput } from 'react-native';
 
 import { COLORS, FONTS } from '../../global_state/constants';
 
-const InputField = ({ placeholderText, textChangeHandler }) => {
+const InputField = ({
+  placeholderText,
+  textChangeHandler,
+  isSecure = false,
+}) => {
   const [input, setinput] = useState('');
 
   const handleInput = newInput => {
@@ -22,6 +26,7 @@ const InputField = ({ placeholderText, textChangeHandler }) => {
         autoCorrect={false}
         selectionColor={COLORS.ACCENT_COLOR}
         value={input}
+        secureTextEntry={isSecure}
         onChangeText={text => handleInput(text)}
       />
     </View>

@@ -31,12 +31,14 @@ const Register = () => {
         </View>
         <View style={styles.inputContainer}>
           <InputField
+            isSecure
             placeholderText="Password"
             textChangeHandler={newInput => setpassword(newInput)}
           />
         </View>
         <View style={styles.inputContainer}>
           <InputField
+            isSecure
             placeholderText="Repeated password"
             textChangeHandler={newInput => setrepeatedPassword(newInput)}
           />
