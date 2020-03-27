@@ -1,15 +1,37 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
-import { COLORS, FONTS } from '../global_state/constants';
+import { COLORS, FONTS, API } from '../global_state/constants';
 import InputField from '../components/input/InputField';
 import CustomButton from '../components/input/CustomButton';
+import axios from 'axios';
 
 const Register = () => {
   const [username, setusername] = useState('');
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
-  const [repeatedPassword, setrepeatedPassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
+
+  const csrf = useSelector(state => state.csrf);
+
+  const tester = () => {
+    axios({
+      url: API.registerAccount,
+      method: 'POST',
+      withCredentials: true,
+      headers: {
+        [csrf.headerName]: csrf.token,
+      },
+      data: {
+        username,
+        email,
+        password,
+        confirmPassword,
+      },
+      // TODO: Tell the user that something went wrong instead of printing something
+    }).catch(e => console.log('ERROR WHILE REGISTERING'));
+  };
 
   return (
     <View style={styles.main}>
@@ -24,11 +46,10 @@ const Register = () => {
           />
         </View>
         <View style={styles.inputContainer}>
-          {/* TODO: Make the keyboard EMAIL type when user is on this inputfield */}
           <InputField
             placeholderText="Email"
             keyboardType="email-address"
-            textChangeHandler={newInput => setemail(username)}
+            textChangeHandler={newInput => setemail(newInput)}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -42,11 +63,11 @@ const Register = () => {
           <InputField
             isSecure
             placeholderText="Repeated password"
-            textChangeHandler={newInput => setrepeatedPassword(newInput)}
+            textChangeHandler={newInput => setconfirmPassword(newInput)}
           />
         </View>
         <View>
-          <CustomButton title="Register" />
+          <CustomButton title="Register" onPress={tester} />
         </View>
       </View>
     </View>

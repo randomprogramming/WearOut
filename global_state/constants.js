@@ -27,6 +27,7 @@ const API = {
   test: SERVER_ADDRESS + '/api/test',
   getMe: SERVER_ADDRESS + '/api/me',
   getCSRF: SERVER_ADDRESS + '/api/getcsrf',
+  registerAccount: SERVER_ADDRESS + '/registeraccount',
 };
 
 export { COLORS, FONTS, ACTIONS, SCREEN_NAMES, API };
