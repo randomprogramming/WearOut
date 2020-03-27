@@ -32,6 +32,14 @@ const App = () => {
   };
 
   useEffect(() => {
+    //Fetch the csrf token and store it in the state when the app loads here
+    axios
+      .get(API.getCSRF)
+      .then(res =>
+        dispatch({ type: ACTIONS.SET_CSRF_TOKEN, payload: res.data }),
+      );
+
+    //Get info about currently logged in account here
     axios.get(API.getMe).then(res => extractCurrentAccount(res));
   }, []);
   return (

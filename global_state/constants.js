@@ -12,6 +12,7 @@ const FONTS = {
 const ACTIONS = {
   CHANGE_USER: 'CHANGE_USER',
   SET_SEARCH_VALUE: 'SET_SEARCH_VALUE',
+  SET_CSRF_TOKEN: 'SET_CSRF_TOKEN',
 };
 const SCREEN_NAMES = {
   HOME: 'Home',
@@ -25,6 +26,7 @@ const SERVER_ADDRESS = 'http://192.168.1.100:8080';
 const API = {
   test: SERVER_ADDRESS + '/api/test',
   getMe: SERVER_ADDRESS + '/api/me',
+  getCSRF: SERVER_ADDRESS + '/api/getcsrf',
 };
 
 export { COLORS, FONTS, ACTIONS, SCREEN_NAMES, API };

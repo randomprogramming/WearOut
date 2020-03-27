@@ -24,8 +24,10 @@ const Register = () => {
           />
         </View>
         <View style={styles.inputContainer}>
+          {/* TODO: Make the keyboard EMAIL type when user is on this inputfield */}
           <InputField
             placeholderText="Email"
+            keyboardType="email-address"
             textChangeHandler={newInput => setemail(username)}
           />
         </View>

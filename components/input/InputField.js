@@ -7,6 +7,7 @@ const InputField = ({
   placeholderText,
   textChangeHandler,
   isSecure = false,
+  keyboardType = 'default',
 }) => {
   const [input, setinput] = useState('');
 
@@ -26,6 +27,7 @@ const InputField = ({
         autoCorrect={false}
         selectionColor={COLORS.ACCENT_COLOR}
         value={input}
+        keyboardType={keyboardType}
         secureTextEntry={isSecure}
         onChangeText={text => handleInput(text)}
       />
