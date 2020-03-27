@@ -9,6 +9,8 @@ const Login = ({ navigation }) => {
   const [usernameInput, setusernameInput] = useState('');
   const [passwordInput, setpasswordInput] = useState('');
 
+  const [userInfo, setuserInfo] = useState({ username: '', password: '' });
+
   const loginHandler = () => {
     // When the user presses the login button this function gets called
     console.log('LOGIN');
@@ -33,12 +35,15 @@ const Login = ({ navigation }) => {
           />
         </View>
       </View>
-      <View>
+      <View style={styles.inputContainer}>
         <CustomButton onPress={loginHandler} title="Login" />
       </View>
-      <View>
-        <Text onPress={() => navigation.navigate(SCREEN_NAMES.REGISTER)}>
-          Register here
+      <View style={styles.registerTextContainer}>
+        <Text style={styles.registerText}>Don't have an account? </Text>
+        <Text
+          style={styles.highlightedText}
+          onPress={() => navigation.navigate(SCREEN_NAMES.REGISTER)}>
+          Sign up.
         </Text>
       </View>
     </View>
@@ -59,6 +64,18 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 14,
+  },
+  registerTextContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  registerText: {
+    fontFamily: FONTS.REGULAR,
+    color: COLORS.TEXT_COLOR,
+  },
+  highlightedText: {
+    fontFamily: FONTS.BOLD,
+    color: COLORS.ACCENT_COLOR,
   },
 });
 
