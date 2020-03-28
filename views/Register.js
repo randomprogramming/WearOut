@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { COLORS, FONTS, API } from '../global_state/constants';
@@ -30,7 +30,13 @@ const Register = () => {
         confirmPassword,
       },
       // TODO: Tell the user that something went wrong instead of printing something
-    }).catch(e => console.log('ERROR WHILE REGISTERING'));
+    })
+      .then(res => {
+        if (res.status === 200) {
+          Alert.alert('Registration successful');
+        }
+      })
+      .catch(e => console.log('ERROR WHILE REGISTERING'));
   };
 
   return (
