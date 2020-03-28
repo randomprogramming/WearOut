@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { COLORS, SCREEN_NAMES } from '../global_state/constants';
 import UserFeed from '../views/UserFeed';
 import Search from '../views/Search';
+import AccountProfile from '../views/AccountProfile';
 
 const MainTab = createBottomTabNavigator();
 
@@ -37,6 +38,14 @@ const Homescreen = () => {
                     color={focused ? COLORS.ACCENT_COLOR : COLORS.TEXT_COLOR}
                   />
                 );
+              case SCREEN_NAMES.ACCOUNT_PROFILE:
+                return (
+                  <AntDesignIcon
+                    name="user"
+                    size={size}
+                    color={focused ? COLORS.ACCENT_COLOR : COLORS.TEXT_COLOR}
+                  />
+                );
               default:
                 //If the screen is something else, this shouldn't happen
                 return (
@@ -56,6 +65,10 @@ const Homescreen = () => {
         }}>
         <MainTab.Screen name={SCREEN_NAMES.HOME} component={UserFeed} />
         <MainTab.Screen name={SCREEN_NAMES.SEARCH} component={Search} />
+        <MainTab.Screen
+          name={SCREEN_NAMES.ACCOUNT_PROFILE}
+          component={AccountProfile}
+        />
       </MainTab.Navigator>
     </View>
   );

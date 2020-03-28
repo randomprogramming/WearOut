@@ -21,6 +21,7 @@ const SCREEN_NAMES = {
   PEOPLE_RESULTS: 'People',
   LOGIN: 'Login',
   REGISTER: 'Register',
+  ACCOUNT_PROFILE: 'Profile',
 };
 const SERVER_ADDRESS = 'http://192.168.1.100:8080';
 const API = {
