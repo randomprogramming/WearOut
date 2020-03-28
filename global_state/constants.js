@@ -28,6 +28,7 @@ const API = {
   getMe: SERVER_ADDRESS + '/api/me',
   getCSRF: SERVER_ADDRESS + '/api/getcsrf',
   registerAccount: SERVER_ADDRESS + '/registeraccount',
+  login: SERVER_ADDRESS + '/loginaccount',
 };
 
 export { COLORS, FONTS, ACTIONS, SCREEN_NAMES, API };
