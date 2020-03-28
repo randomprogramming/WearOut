@@ -15,7 +15,7 @@ const Register = () => {
 
   const csrf = useSelector(state => state.csrf);
 
-  const tester = () => {
+  const registerHandler = () => {
     axios({
       url: API.registerAccount,
       method: 'POST',
@@ -36,7 +36,7 @@ const Register = () => {
           Alert.alert('Registration successful');
         }
       })
-      .catch(e => console.log('ERROR WHILE REGISTERING'));
+      .catch(e => Alert.alert('Registration failed'));
   };
 
   return (
@@ -73,7 +73,7 @@ const Register = () => {
           />
         </View>
         <View>
-          <CustomButton title="Register" onPress={tester} />
+          <CustomButton title="Register" onPress={registerHandler} />
         </View>
       </View>
     </View>

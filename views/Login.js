@@ -53,11 +53,13 @@ const Login = ({ navigation }) => {
         <CustomButton onPress={loginHandler} title="Login" />
       </View>
       <View style={styles.registerTextContainer}>
-        <Text style={styles.registerText}>Don't have an account? </Text>
-        <Text
-          style={styles.highlightedText}
-          onPress={() => navigation.navigate(SCREEN_NAMES.REGISTER)}>
-          Sign up.
+        <Text style={styles.registerText}>
+          {"Don't have an account? "}
+          <Text
+            style={styles.highlightedText}
+            onPress={() => navigation.navigate(SCREEN_NAMES.REGISTER)}>
+            Sign up.
+          </Text>
         </Text>
       </View>
     </View>
@@ -80,8 +82,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   registerTextContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    alignSelf: 'center',
   },
   registerText: {
     fontFamily: FONTS.REGULAR,
