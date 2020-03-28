@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { COLORS, FONTS, SCREEN_NAMES, API } from '../global_state/constants';
+import {
+  COLORS,
+  FONTS,
+  SCREEN_NAMES,
+  API,
+  ACTIONS,
+} from '../global_state/constants';
 import InputField from '../components/input/InputField';
 import CustomButton from '../components/input/CustomButton';
 
@@ -11,7 +17,28 @@ const Login = ({ navigation }) => {
   const [username, setusername] = useState('');
   const [password, setpassword] = useState('');
 
+  const dispatch = useDispatch();
   const csrf = useSelector(state => state.csrf);
+
+  const extractCurrentAccount = data => {
+    // If data is not empty, dispatch the data to the redux store and tell the app that the user is logged in
+    if (data) {
+      dispatch({
+        type: ACTIONS.CHANGE_USER,
+        payload: {
+          username: data.name,
+          authenticated: data.authenticated,
+        },
+      });
+    }
+  };
+
+  const checkLoginStatus = () => {
+    // Make a request to the server and check if the user is logged in
+    axios.get(API.getMe).then(res => {
+      extractCurrentAccount(res.data);
+    });
+  };
 
   const loginHandler = () => {
     // When the user presses the login button this function gets called
@@ -25,14 +52,19 @@ const Login = ({ navigation }) => {
       },
       data: `username=${username}&password=${password}&_csrf=${csrf.token}`,
     })
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res.data);
+        checkLoginStatus();
+      })
       .catch(err => console.log(err));
   };
 
   return (
     <View style={styles.main}>
       <View>
-        <Text style={styles.logoContainer}>Wo</Text>
+        <Text style={styles.logoContainer} onPress={() => checkLoginStatus()}>
+          Wo
+        </Text>
       </View>
       <View>
         <View style={styles.inputContainer}>

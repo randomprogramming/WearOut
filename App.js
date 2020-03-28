@@ -17,16 +17,16 @@ const App = () => {
   const userData = useSelector(state => state.user);
 
   const extractCurrentAccount = data => {
-    let user = {
-      username: undefined,
-      isAuthenticated: false,
-      isLoaded: true,
-    };
-    if (data.length !== 0) {
-      //TODO: Dispatch the user data here
+    // If data is not empty, dispatch the data to the redux store and tell the app that the user is logged in
+    if (data) {
+      dispatch({
+        type: ACTIONS.CHANGE_USER,
+        payload: {
+          username: data.name,
+          authenticated: data.authenticated,
+        },
+      });
     }
-    // TODO: If isLoaded is true and isAuthenticated is false, show the login page
-    // else, show the loading page until the user data is loaded in
   };
 
   useEffect(() => {
@@ -38,8 +38,9 @@ const App = () => {
       );
 
     //Get info about currently logged in account here
-    axios.get(API.getMe).then(res => extractCurrentAccount(res));
+    axios.get(API.getMe).then(res => extractCurrentAccount(res.data));
   }, []);
+
   return (
     <View style={styles.main}>
       <StatusBar

@@ -11,7 +11,7 @@ const userReducer = (state = initialState, action) => {
     case ACTIONS.CHANGE_USER:
       return {
         username: action.payload.username,
-        isAuthenticated: action.payload.username.length > 0,
+        isAuthenticated: action.payload.authenticated,
         isLoaded: true,
       };
     default:
