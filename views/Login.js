@@ -15,6 +15,7 @@ const Login = ({ navigation }) => {
 
   const loginHandler = () => {
     // When the user presses the login button this function gets called
+    // Log in the user
     axios({
       url: API.login,
       method: 'POST',
@@ -22,48 +23,16 @@ const Login = ({ navigation }) => {
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
       },
-      // data: {
-      //   // username,
-      //   // password,
-      //   [csrf.parameterName]: csrf.token,
-      // },
       data: `username=${username}&password=${password}&_csrf=${csrf.token}`,
     })
       .then(res => console.log(res))
       .catch(err => console.log(err));
-    // fetch('http://localhost:8080/loginaccount', {
-    //   credentials: 'include',
-    //   headers: {
-    //     accept:
-    //       'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-    //     'accept-language': 'en-US,en;q=0.9',
-    //     'cache-control': 'max-age=0',
-    //     'content-type': 'application/x-www-form-urlencoded',
-    //     'sec-fetch-dest': 'document',
-    //     'sec-fetch-mode': 'navigate',
-    //     'sec-fetch-site': 'same-origin',
-    //     'sec-fetch-user': '?1',
-    //     'upgrade-insecure-requests': '1',
-    //   },
-    //   referrer: 'http://localhost:8080/login',
-    //   referrerPolicy: 'no-referrer-when-downgrade',
-    //   body:
-    //     'username=test&password=aaaaaaaaaa&_csrf=15267c79-2586-4594-9c1f-e540899e551e',
-    //   method: 'POST',
-    //   mode: 'cors',
-    // });
   };
 
   return (
     <View style={styles.main}>
       <View>
-        <Text
-          style={styles.logoContainer}
-          onPress={() => {
-            axios.get(API.getMe).then(res => console.log(res.data));
-          }}>
-          Wo
-        </Text>
+        <Text style={styles.logoContainer}>Wo</Text>
       </View>
       <View>
         <View style={styles.inputContainer}>
