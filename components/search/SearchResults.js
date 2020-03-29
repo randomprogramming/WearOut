@@ -16,9 +16,7 @@ const SearchResults = ({ route, navigation }) => {
         <View>
           <Text
             onPress={() => {
-              navigation.navigate(SCREEN_NAMES.ANOTHER_PERSON_ACCOUNT_PROFILE, {
-                id: 15,
-              });
+              navigation.navigate('test', { id: 15 });
             }}>
             Test
           </Text>
