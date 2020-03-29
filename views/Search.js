@@ -17,7 +17,10 @@ const Search = () => {
       <View style={styles.searchContentContainer}>
         <SearchTab.Navigator
           tabBarOptions={{
-            style: { elevation: 0, shadowOpacity: 0 },
+            style: {
+              elevation: 0,
+              shadowOpacity: 0,
+            },
             labelStyle: { fontFamily: FONTS.BOLD, color: COLORS.TEXT_COLOR },
             indicatorStyle: {
               backgroundColor: COLORS.ACCENT_COLOR,

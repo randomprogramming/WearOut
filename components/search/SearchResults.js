@@ -1,16 +1,36 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const SearchResults = () => {
-  // const [state, dispatch] = useReducer(searchReducer);
+import { COLORS, SCREEN_NAMES } from '../../global_state/constants';
+import AccountProfile from '../../views/AccountProfile';
+
+const SearchResults = ({ route, navigation }) => {
+  const [searchResults, setsearchResults] = useState([]);
   const search = useSelector(state => state.search);
+
   return (
-    <View>
-      <Text>Results</Text>
-      <Text>{search}</Text>
+    <View style={styles.main}>
+      <ScrollView>
+        <View>
+          <Text
+            onPress={() => {
+              navigation.navigate('test', { id: 15 });
+            }}>
+            Test
+          </Text>
+        </View>
+      </ScrollView>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  main: {
+    backgroundColor: COLORS.MAIN_BACKGROUND,
+    flex: 1,
+  },
+});
 
 export default SearchResults;

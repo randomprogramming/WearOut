@@ -30,6 +30,9 @@ const API = {
   getCSRF: SERVER_ADDRESS + '/api/getcsrf',
   registerAccount: SERVER_ADDRESS + '/registeraccount',
   login: SERVER_ADDRESS + '/loginaccount',
+  searchStreetwear: function(query) {
+    return `https://stockx.com/api/browse?&_search=${query}`;
+  },
 };
 
 export { COLORS, FONTS, ACTIONS, SCREEN_NAMES, API };

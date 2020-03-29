@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -68,6 +68,7 @@ const Homescreen = () => {
         <MainTab.Screen
           name={SCREEN_NAMES.ACCOUNT_PROFILE}
           component={AccountProfile}
+          initialParams={{ id: 0 }}
         />
       </MainTab.Navigator>
     </View>
