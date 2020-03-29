@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import { COLORS, SCREEN_NAMES } from '../global_state/constants';
 import UserFeed from '../views/UserFeed';
@@ -9,8 +10,22 @@ import Search from '../views/Search';
 import AccountProfile from '../views/AccountProfile';
 
 const MainTab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const Homescreen = () => {
+  const SearchPage = () => {
+    return (
+      <View style={styles.main}>
+        <Stack.Navigator headerMode="none" initialRouteName="default">
+          <Stack.Screen name="default" component={Search} />
+          <Stack.Screen
+            name={SCREEN_NAMES.ANOTHER_ACCOUNT_PROFILE}
+            component={AccountProfile}
+          />
+        </Stack.Navigator>
+      </View>
+    );
+  };
   return (
     <View style={styles.main}>
       <MainTab.Navigator
@@ -64,7 +79,7 @@ const Homescreen = () => {
           style: { backgroundColor: COLORS.BACKGROUND_DARKER },
         }}>
         <MainTab.Screen name={SCREEN_NAMES.HOME} component={UserFeed} />
-        <MainTab.Screen name={SCREEN_NAMES.SEARCH} component={Search} />
+        <MainTab.Screen name={SCREEN_NAMES.SEARCH} component={SearchPage} />
         <MainTab.Screen
           name={SCREEN_NAMES.ACCOUNT_PROFILE}
           component={AccountProfile}

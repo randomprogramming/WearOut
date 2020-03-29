@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
-import { createStackNavigator } from '@react-navigation/stack';
 
 import { COLORS, SCREEN_NAMES } from '../../global_state/constants';
-import AccountProfile from '../../views/AccountProfile';
 
 const SearchResults = ({ route, navigation }) => {
   const [searchResults, setsearchResults] = useState([]);
@@ -16,7 +14,9 @@ const SearchResults = ({ route, navigation }) => {
         <View>
           <Text
             onPress={() => {
-              navigation.navigate('test', { id: 15 });
+              navigation.navigate(SCREEN_NAMES.ANOTHER_ACCOUNT_PROFILE, {
+                id: 15,
+              });
             }}>
             Test
           </Text>
