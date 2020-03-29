@@ -1,15 +1,10 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, StatusBar } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { COLORS, SCREEN_NAMES, API, ACTIONS } from './global_state/constants';
-import UserFeed from './views/UserFeed';
-import Search from './views/Search';
+import { COLORS, API, ACTIONS } from './global_state/constants';
 import Homescreen from './views/Homescreen';
-import Login from './views/Login';
 import LoginRegisterStackPage from './views/LoginRegisterStackPage';
 
 const App = () => {

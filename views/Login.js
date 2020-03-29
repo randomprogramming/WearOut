@@ -51,20 +51,15 @@ const Login = ({ navigation }) => {
         'content-type': 'application/x-www-form-urlencoded',
       },
       data: `username=${username}&password=${password}&_csrf=${csrf.token}`,
-    })
-      .then(res => {
-        console.log(res.data);
-        checkLoginStatus();
-      })
-      .catch(err => console.log(err));
+    }).then(() => {
+      checkLoginStatus();
+    });
   };
 
   return (
     <View style={styles.main}>
       <View>
-        <Text style={styles.logoContainer} onPress={() => checkLoginStatus()}>
-          Wo
-        </Text>
+        <Text style={styles.logoContainer}>Wo</Text>
       </View>
       <View>
         <View style={styles.inputContainer}>
