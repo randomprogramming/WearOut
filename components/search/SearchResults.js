@@ -1,14 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
-import { COLORS, SCREEN_NAMES, API } from '../../global_state/constants';
+import { COLORS, SCREEN_NAMES, API, FONTS } from '../../global_state/constants';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const SearchResults = ({ route, navigation }) => {
   const [searchResults, setsearchResults] = useState([]);
   const [redirectionPath, setredirectionPath] = useState('');
-  const [searchUrl, setsearchUrl] = useState('');
   const search = useSelector(state => state.search);
+
+  const extractData = data => {
+    let allData = [];
+    if (data.Products) {
+      data.Products.map(item => {
+        let itemAlreadyAdded = false;
+        //check every product in allData, and if a id matches to the id of the current item, don't add it
+        //to alldata, to prevent duplicates.
+        for (let product of allData) {
+          if (product.id === item.id) {
+            itemAlreadyAdded = true;
+          }
+        }
+        if (!itemAlreadyAdded) {
+          allData.push({
+            id: item.id,
+            brand: item.brand,
+            title: item.title,
+            image: item.media.thumbUrl,
+          });
+        }
+      });
+    }
+
+    setsearchResults(allData);
+  };
+
+  const fetchSearchResults = () => {
+    if (search.length !== 0) {
+      axios
+        .get(
+          redirectionPath === SCREEN_NAMES.STREETWEAR_RESULTS
+            ? API.searchStreetwear(search)
+            : // TODO: Change this to my server url
+              API.searchStreetwear(search),
+        )
+        .then(res => extractData(res.data));
+    } else {
+      setsearchResults([]);
+    }
+  };
 
   useEffect(() => {
     // console.log(route.params.searchUrl);
@@ -16,34 +58,59 @@ const SearchResults = ({ route, navigation }) => {
     switch (route.name) {
       case SCREEN_NAMES.STREETWEAR_RESULTS:
         setredirectionPath(SCREEN_NAMES.STREETWEAR_PAGE);
-        setsearchUrl(API.searchStreetwear);
         break;
       case SCREEN_NAMES.PEOPLE_RESULTS:
         setredirectionPath(SCREEN_NAMES.ANOTHER_ACCOUNT_PROFILE);
-        setsearchUrl(API.searchPeople);
         break;
       default:
         setredirectionPath('error');
     }
+    // when the component mounts, we need to fetch search results
+    fetchSearchResults();
   }, []);
 
   useEffect(() => {
     //whenever the search value changes, we have to search for the newly entered input
+    fetchSearchResults();
   }, [search]);
 
   return (
     <View style={styles.main}>
       <ScrollView>
-        <View>
-          <Text
+        {searchResults.map(item => {
+          return (
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => navigation.push(redirectionPath, { id: item.id })}>
+              <View style={styles.mainResultContainer}>
+                <View style={styles.imageContainer}>
+                  <View>
+                    <Image
+                      source={{
+                        uri: item.image,
+                      }}
+                      style={styles.image}
+                    />
+                  </View>
+                  <View>
+                    <Text style={styles.brandText}>{item.brand}</Text>
+                  </View>
+                </View>
+                <View style={styles.titleTextContainer}>
+                  <Text style={styles.titleText}>{item.title}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+        {/* <Text
             onPress={() => {
               navigation.push(redirectionPath, {
                 id: 15,
               });
             }}>
             Test
-          </Text>
-        </View>
+          </Text> */}
       </ScrollView>
     </View>
   );
@@ -53,6 +120,33 @@ const styles = StyleSheet.create({
   main: {
     backgroundColor: COLORS.MAIN_BACKGROUND,
     flex: 1,
+  },
+  image: {
+    width: 98,
+    height: 70,
+  },
+  mainResultContainer: {
+    flexDirection: 'row',
+    height: 100,
+    borderBottomColor: COLORS.BACKGROUND_DARKER,
+    borderBottomWidth: 1,
+    marginTop: 10,
+  },
+  imageContainer: {
+    marginLeft: 15,
+  },
+  brandText: {
+    fontFamily: FONTS.REGULAR,
+    color: COLORS.TEXT_COLOR,
+    alignSelf: 'center',
+  },
+  titleTextContainer: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  titleText: {
+    fontFamily: FONTS.BOLD,
+    color: COLORS.TEXT_COLOR,
   },
 });
 
