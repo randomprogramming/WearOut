@@ -8,12 +8,15 @@ import { COLORS, SCREEN_NAMES } from '../global_state/constants';
 import UserFeed from '../views/UserFeed';
 import Search from '../views/Search';
 import AccountProfile from '../views/AccountProfile';
+import Streetwear from './Streetwear';
 
 const MainTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const Homescreen = () => {
   const SearchPage = () => {
+    // This is the list of pages which you will be able to access from the SearchPage, so we
+    // create a screen for each of those pages
     return (
       <View style={styles.main}>
         <Stack.Navigator headerMode="none" initialRouteName="default">
@@ -21,6 +24,10 @@ const Homescreen = () => {
           <Stack.Screen
             name={SCREEN_NAMES.ANOTHER_ACCOUNT_PROFILE}
             component={AccountProfile}
+          />
+          <Stack.Screen
+            name={SCREEN_NAMES.STREETWEAR_PAGE}
+            component={Streetwear}
           />
         </Stack.Navigator>
       </View>

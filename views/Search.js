@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import { COLORS, FONTS, SCREEN_NAMES } from '../global_state/constants';
+import { COLORS, FONTS, SCREEN_NAMES, API } from '../global_state/constants';
 import SearchBar from '../components/search/SearchBar';
 import SearchResults from '../components/search/SearchResults';
 

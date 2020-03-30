@@ -23,6 +23,7 @@ const SCREEN_NAMES = {
   REGISTER: 'Register',
   ACCOUNT_PROFILE: 'Profile',
   ANOTHER_ACCOUNT_PROFILE: 'Another_Profile',
+  STREETWEAR_PAGE: 'Streetwear_Page',
 };
 const SERVER_ADDRESS = 'http://192.168.1.100:8080';
 const API = {
@@ -33,6 +34,9 @@ const API = {
   login: SERVER_ADDRESS + '/loginaccount',
   searchStreetwear: function(query) {
     return `https://stockx.com/api/browse?&_search=${query}`;
+  },
+  searchPeople: function(query) {
+    return SERVER_ADDRESS + `/api/searchAccounts/${query}`;
   },
 };
 
