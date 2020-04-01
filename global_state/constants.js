@@ -41,6 +41,9 @@ const API = {
   searchAccountById: function(id) {
     return SERVER_ADDRESS + `/api/findaccountbyid/${id}`;
   },
+  searchAccountByUsername: function(id) {
+    return SERVER_ADDRESS + `/api/findaccountbyusername/${id}`;
+  },
 };
 
 export { COLORS, FONTS, ACTIONS, SCREEN_NAMES, API };
