@@ -29,11 +29,21 @@ const SearchResults = ({ route, navigation }) => {
             brand: item.brand,
             title: item.title,
             image: item.media.thumbUrl,
+            smallImage: false,
           });
         }
       });
+    } else {
+      data.map(account => {
+        allData.push({
+          id: account.id,
+          username: account.username,
+          accountDescription: account.description,
+          image: account.linkToProfilePicture,
+          smallImage: true,
+        });
+      });
     }
-
     setsearchResults(allData);
   };
 
@@ -41,10 +51,10 @@ const SearchResults = ({ route, navigation }) => {
     if (search.length !== 0) {
       axios
         .get(
-          redirectionPath === SCREEN_NAMES.STREETWEAR_RESULTS
+          redirectionPath === SCREEN_NAMES.STREETWEAR_PAGE
             ? API.searchStreetwear(search)
             : // TODO: Change this to my server url
-              API.searchStreetwear(search),
+              API.searchPeople(search),
         )
         .then(res => extractData(res.data));
     } else {
@@ -71,6 +81,7 @@ const SearchResults = ({ route, navigation }) => {
 
   useEffect(() => {
     //whenever the search value changes, we have to search for the newly entered input
+
     fetchSearchResults();
   }, [search]);
 
@@ -78,7 +89,30 @@ const SearchResults = ({ route, navigation }) => {
     <View style={styles.main}>
       <ScrollView>
         {searchResults.map(item => {
-          return (
+          return item.smallImage ? (
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => navigation.push(redirectionPath, { id: item.id })}>
+              <View style={styles.smallMainResultContainer}>
+                <View style={styles.imageContainer}>
+                  <View>
+                    <Image
+                      source={{
+                        uri: item.image,
+                      }}
+                      style={styles.smallImage}
+                    />
+                  </View>
+                </View>
+                <View style={styles.titleTextContainer}>
+                  <Text style={styles.titleText}>{item.username}</Text>
+                  <Text style={styles.accountDescriptiontext}>
+                    {item.accountDescription}
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          ) : (
             <TouchableOpacity
               key={item.id}
               onPress={() => navigation.push(redirectionPath, { id: item.id })}>
@@ -125,12 +159,31 @@ const styles = StyleSheet.create({
     width: 98,
     height: 70,
   },
+  smallImage: {
+    width: 60,
+    height: 60,
+    aspectRatio: 1,
+    borderRadius: 30,
+  },
   mainResultContainer: {
     flexDirection: 'row',
     height: 100,
     borderBottomColor: COLORS.BACKGROUND_DARKER,
     borderBottomWidth: 1,
     marginTop: 10,
+  },
+  smallMainResultContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    height: 80,
+    borderBottomColor: COLORS.BACKGROUND_DARKER,
+    borderBottomWidth: 1,
+    marginTop: 10,
+  },
+  accountDescriptiontext: {
+    fontFamily: FONTS.REGULAR,
+    color: COLORS.TEXT_COLOR,
+    fontSize: 13,
   },
   imageContainer: {
     marginLeft: 15,

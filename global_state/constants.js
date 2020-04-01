@@ -36,7 +36,7 @@ const API = {
     return `https://stockx.com/api/browse?&_search=${query}`;
   },
   searchPeople: function(query) {
-    return SERVER_ADDRESS + `/api/searchAccounts/${query}`;
+    return SERVER_ADDRESS + `/api/findaccounts/${query}`;
   },
 };
 
