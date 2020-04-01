@@ -33,6 +33,20 @@ const Homescreen = () => {
       </View>
     );
   };
+
+  const ProfilePageStack = () => {
+    return (
+      <View style={styles.main}>
+        <Stack.Navigator headerMode="none" initialRouteName="default">
+          <Stack.Screen
+            name="default"
+            component={AccountProfile}
+            initialParams={{ id: 'self' }}
+          />
+        </Stack.Navigator>
+      </View>
+    );
+  };
   return (
     <View style={styles.main}>
       <MainTab.Navigator
@@ -89,8 +103,7 @@ const Homescreen = () => {
         <MainTab.Screen name={SCREEN_NAMES.SEARCH} component={SearchPage} />
         <MainTab.Screen
           name={SCREEN_NAMES.ACCOUNT_PROFILE}
-          component={AccountProfile}
-          initialParams={{ id: 0 }}
+          component={ProfilePageStack}
         />
       </MainTab.Navigator>
     </View>

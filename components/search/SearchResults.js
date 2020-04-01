@@ -6,6 +6,9 @@ import axios from 'axios';
 import { COLORS, SCREEN_NAMES, API, FONTS } from '../../global_state/constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+//TODO: Rewrite the whole search system because everything here is
+//hardcoded and not very well written.
+
 const SearchResults = ({ route, navigation }) => {
   const [searchResults, setsearchResults] = useState([]);
   const [redirectionPath, setredirectionPath] = useState('');
@@ -63,7 +66,6 @@ const SearchResults = ({ route, navigation }) => {
   };
 
   useEffect(() => {
-    // console.log(route.params.searchUrl);
     // Based on the name of the route, the navigation url to which the onPress function leads is different
     switch (route.name) {
       case SCREEN_NAMES.STREETWEAR_RESULTS:
@@ -81,7 +83,6 @@ const SearchResults = ({ route, navigation }) => {
 
   useEffect(() => {
     //whenever the search value changes, we have to search for the newly entered input
-
     fetchSearchResults();
   }, [search]);
 
@@ -137,14 +138,6 @@ const SearchResults = ({ route, navigation }) => {
             </TouchableOpacity>
           );
         })}
-        {/* <Text
-            onPress={() => {
-              navigation.push(redirectionPath, {
-                id: 15,
-              });
-            }}>
-            Test
-          </Text> */}
       </ScrollView>
     </View>
   );

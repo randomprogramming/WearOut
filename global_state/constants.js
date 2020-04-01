@@ -38,6 +38,9 @@ const API = {
   searchPeople: function(query) {
     return SERVER_ADDRESS + `/api/findaccounts/${query}`;
   },
+  searchAccountById: function(id) {
+    return SERVER_ADDRESS + `/api/findaccountbyid/${id}`;
+  },
 };
 
 export { COLORS, FONTS, ACTIONS, SCREEN_NAMES, API };

@@ -1,18 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import axios from 'axios';
+
+import { COLORS, API } from '../global_state/constants';
+import { useSelector } from 'react-redux';
 
 const AccountProfile = ({ route }) => {
-  //if the route.params.id is defined, it means that we were redirected here from somewhere else,
-  //and we have to make a request to the server and search for the person with the id
-  //if route.params.id is not defined, it means that the user clicked on their own profile
-  let accountId = route.params.id ? route.params.id : 'self';
+  //route.params.id can be one of the 2 values: either "self" or a number, which represents the id of the person
+  //on whos profile we currently are located
+  const accountId = route.params.id;
+  const selfAccount = useSelector(state => state.account);
+
+  const [activeAccount, setactiveAccount] = useState({});
+
+  useEffect(() => {
+    console.log(selfAccount);
+    //this could be written a bit neater if we had the ID of the currently logged in user,
+    //but since we don't this will work just fine too.
+    if (accountId === 'self') {
+      //if accountId is "self", we search for the user by username since we know the username
+      // axios
+      //   .get(API.searchAccountByUsername(accountId))
+      //   .then(res => setactiveAccount(res.data))
+      //   .catch(err => console.log('account not found'));
+    } else {
+      //else we search for the user by id
+      axios
+        .get(API.searchAccountById(accountId))
+        .then(res => setactiveAccount(res.data))
+        .catch(err => console.log('account not found'));
+    }
+  }, []);
 
   return (
-    <View>
+    <View style={styles.main}>
       <Text>Profile page</Text>
-      <Text>{accountId}</Text>
+      <Text>{activeAccount.username}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    backgroundColor: COLORS.MAIN_BACKGROUND,
+  },
+});
 
 export default AccountProfile;
