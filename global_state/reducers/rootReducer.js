@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import userReducer from './userReducer';
+import accountReducer from './accountReducer';
 import searchReducer from './searchReducer';
 import csrfReducer from './csrfReducer';
 
 const rootReducer = combineReducers({
-  user: userReducer,
+  account: accountReducer,
   search: searchReducer,
   csrf: csrfReducer,
 });

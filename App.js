@@ -9,13 +9,13 @@ import LoginRegisterStackPage from './views/LoginRegisterStackPage';
 
 const App = () => {
   const dispatch = useDispatch();
-  const userData = useSelector(state => state.user);
+  const accountData = useSelector(state => state.account);
 
   const extractCurrentAccount = data => {
     // If data is not empty, dispatch the data to the redux store and tell the app that the user is logged in
     if (data) {
       dispatch({
-        type: ACTIONS.CHANGE_USER,
+        type: ACTIONS.CHANGE_ACCOUNT,
         payload: {
           username: data.name,
           authenticated: data.authenticated,
@@ -42,7 +42,11 @@ const App = () => {
         backgroundColor={COLORS.MAIN_BACKGROUND}
         barStyle="dark-content"
       />
-      {userData.isAuthenticated ? <Homescreen /> : <LoginRegisterStackPage />}
+      {accountData.isAuthenticated ? (
+        <Homescreen />
+      ) : (
+        <LoginRegisterStackPage />
+      )}
     </View>
   );
 };

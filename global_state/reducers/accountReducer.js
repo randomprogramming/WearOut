@@ -6,9 +6,9 @@ const initialState = {
   isLoaded: false,
 };
 
-const userReducer = (state = initialState, action) => {
+const accountReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTIONS.CHANGE_USER:
+    case ACTIONS.CHANGE_ACCOUNT:
       return {
         username: action.payload.username,
         isAuthenticated: action.payload.authenticated,
@@ -19,4 +19,4 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
-export default userReducer;
+export default accountReducer;

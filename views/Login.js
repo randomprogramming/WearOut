@@ -24,7 +24,7 @@ const Login = ({ navigation }) => {
     // If data is not empty, dispatch the data to the redux store and tell the app that the user is logged in
     if (data) {
       dispatch({
-        type: ACTIONS.CHANGE_USER,
+        type: ACTIONS.CHANGE_ACCOUNT,
         payload: {
           username: data.name,
           authenticated: data.authenticated,
