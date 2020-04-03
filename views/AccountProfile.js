@@ -11,9 +11,9 @@ const AccountProfile = ({ route }) => {
   //on whos profile we currently are located
   const accountId = route.params.id;
   const selfAccountUsername = useSelector(state => state.account.username);
-
+  const test = useSelector(state => state.account);
   const [activeAccount, setactiveAccount] = useState({});
-
+  console.log(test);
   useEffect(() => {
     //this could be written a bit neater if we had the ID of the currently logged in user,
     //but since we don't this will work just fine too.
