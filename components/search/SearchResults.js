@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { COLORS, SCREEN_NAMES, API, FONTS } from '../../global_state/constants';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 //TODO: Rewrite the whole search system because everything here is
 //hardcoded and not very well written.
