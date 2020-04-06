@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { COLORS, API, ACTIONS } from './global_state/constants';
 import Homescreen from './views/Homescreen';
 import LoginRegisterStackPage from './views/LoginRegisterStackPage';
+import accountActions from './global_state/actions/accountActions';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,6 @@ const App = () => {
   const extractCurrentAccount = (data) => {
     // If data is not empty, dispatch the data to the redux store and tell the app that the user is logged in
     if (data) {
-      console.log(data);
       axios.get(API.searchAccountByUsername(data.name)).then((res) =>
         dispatch({
           type: ACTIONS.CHANGE_ACCOUNT,
@@ -33,6 +33,16 @@ const App = () => {
     }
   };
 
+  const updateUser = (isAuthenticated, username) => {
+    axios
+      .get(API.searchAccountByUsername(username))
+      .then((res) =>
+        dispatch(
+          accountActions.changeAccount({ ...res.data, isAuthenticated }),
+        ),
+      );
+  };
+
   useEffect(() => {
     //Fetch the csrf token and store it in the state when the app loads here
     axios
@@ -42,7 +52,16 @@ const App = () => {
       );
 
     //Get info about currently logged in account here
-    axios.get(API.getMe).then((res) => extractCurrentAccount(res.data));
+    // axios.get(API.getMe).then((res) => {
+    //   axios
+    //     .get(API.searchAccountByUsername(res.data.name))
+    //     .then((accRes) => dispatch(accountActions.changeAccount(accRes)));
+    // });
+    axios.get(API.getMe).then((meRes) => {
+      if (meRes.data.name) {
+        updateUser(meRes.data.authenticated, meRes.data.name);
+      }
+    });
   }, []);
 
   return (
@@ -51,6 +70,7 @@ const App = () => {
         backgroundColor={COLORS.MAIN_BACKGROUND}
         barStyle="dark-content"
       />
+      {console.log(accountData)}
       {accountData.isAuthenticated ? (
         <Homescreen />
       ) : (

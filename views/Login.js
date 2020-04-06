@@ -12,6 +12,7 @@ import {
 } from '../global_state/constants';
 import InputField from '../components/input/InputField';
 import CustomButton from '../components/input/CustomButton';
+import accountActions from '../global_state/actions/accountActions';
 
 const Login = ({ navigation }) => {
   const [username, setusername] = useState('');
@@ -33,10 +34,29 @@ const Login = ({ navigation }) => {
     }
   };
 
+  const updateUser = (isAuthenticated, username) => {
+    console.log(isAuthenticated);
+    axios
+      .get(API.searchAccountByUsername(username))
+      .then((res) =>
+        dispatch(
+          accountActions.changeAccount({ ...res.data, isAuthenticated }),
+        ),
+      );
+  };
+
   const checkLoginStatus = () => {
     // Make a request to the server and check if the user is logged in
-    axios.get(API.getMe).then((res) => {
-      extractCurrentAccount(res.data);
+    //Get info about currently logged in account here
+    // axios.get(API.getMe).then((res) => {
+    //   axios
+    //     .get(API.searchAccountByUsername(res.data.name))
+    //     .then((accRes) => dispatch(accountActions.changeAccount(accRes)));
+    // });
+    axios.get(API.getMe).then((meRes) => {
+      if (meRes.data.name) {
+        updateUser(meRes.data.authenticated, meRes.data.name);
+      }
     });
   };
 
@@ -59,7 +79,13 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.main}>
       <View>
-        <Text style={styles.logoContainer}>Wo</Text>
+        <Text
+          style={styles.logoContainer}
+          onPress={(e) =>
+            axios.get(API.getMe).then((res) => console.log(res.data))
+          }>
+          Wo
+        </Text>
       </View>
       <View>
         <View style={styles.inputContainer}>

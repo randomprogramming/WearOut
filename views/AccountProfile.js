@@ -11,13 +11,12 @@ const AccountProfile = ({ route }) => {
   //on whos profile we currently are located
   const accountId = route.params.id;
   const selfAccountUsername = useSelector((state) => state.account.username);
-  const [selfAccount, setselfAccount] = useState({});
+  // const [selfAccount, setselfAccount] = useState({});
+  const selfAccount = useSelector((state) => state.account);
   const [activeAccount, setactiveAccount] = useState({});
   const [isFollowing, setisFollowing] = useState(false);
 
   const handleFollow = () => {
-    // console.log('active' + JSON.stringify(activeAccount));
-    // console.log('self' + JSON.stringify(selfAccount));
     axios
       .get(API.follow(activeAccount.id))
       .then((res) => checkFollowingStatus(selfAccount.id, activeAccount.id))
@@ -30,12 +29,6 @@ const AccountProfile = ({ route }) => {
       .then((res) => setisFollowing(res.data))
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    axios
-      .get(API.searchAccountByUsername(selfAccountUsername))
-      .then((res) => setselfAccount(res.data));
-  }, []);
 
   useEffect(() => {
     //this could be written a bit neater if we had the ID of the currently logged in user,
@@ -56,6 +49,7 @@ const AccountProfile = ({ route }) => {
     if (selfAccount.id && activeAccount.id) {
       checkFollowingStatus(selfAccount.id, activeAccount.id);
     }
+    console.log(selfAccount);
   }, [activeAccount, selfAccount]);
 
   return (

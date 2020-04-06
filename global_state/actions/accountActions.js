@@ -1,6 +1,10 @@
-import { ACTIONS } from '../constants';
+import axios from 'axios';
 
-const changeAccount = account => {
+import { ACTIONS, API } from '../constants';
+
+const changeAccount = (account) => {
+  console.log('accc');
+  console.log(account);
   return {
     type: ACTIONS.CHANGE_ACCOUNT,
     payload: account,
