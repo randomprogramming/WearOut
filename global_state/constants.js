@@ -32,17 +32,20 @@ const API = {
   getCSRF: SERVER_ADDRESS + '/api/getcsrf',
   registerAccount: SERVER_ADDRESS + '/registeraccount',
   login: SERVER_ADDRESS + '/loginaccount',
-  searchStreetwear: function(query) {
+  searchStreetwear: function (query) {
     return `https://stockx.com/api/browse?&_search=${query}`;
   },
-  searchPeople: function(query) {
+  searchPeople: function (query) {
     return SERVER_ADDRESS + `/api/findaccounts/${query}`;
   },
-  searchAccountById: function(id) {
+  searchAccountById: function (id) {
     return SERVER_ADDRESS + `/api/findaccountbyid/${id}`;
   },
-  searchAccountByUsername: function(id) {
+  searchAccountByUsername: function (id) {
     return SERVER_ADDRESS + `/api/findaccountbyusername/${id}`;
+  },
+  checkFollowStatus: function (followerId, followedId) {
+    return SERVER_ADDRESS + `/api/is/${followerId}/following/${followedId}`;
   },
 };
 
