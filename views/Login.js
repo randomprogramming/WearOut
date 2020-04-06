@@ -18,9 +18,9 @@ const Login = ({ navigation }) => {
   const [password, setpassword] = useState('');
 
   const dispatch = useDispatch();
-  const csrf = useSelector(state => state.csrf);
+  const csrf = useSelector((state) => state.csrf);
 
-  const extractCurrentAccount = data => {
+  const extractCurrentAccount = (data) => {
     // If data is not empty, dispatch the data to the redux store and tell the app that the user is logged in
     if (data) {
       dispatch({
@@ -35,7 +35,7 @@ const Login = ({ navigation }) => {
 
   const checkLoginStatus = () => {
     // Make a request to the server and check if the user is logged in
-    axios.get(API.getMe).then(res => {
+    axios.get(API.getMe).then((res) => {
       extractCurrentAccount(res.data);
     });
   };
@@ -65,14 +65,14 @@ const Login = ({ navigation }) => {
         <View style={styles.inputContainer}>
           <InputField
             placeholderText="Username"
-            textChangeHandler={newInput => setusername(newInput)}
+            textChangeHandler={(newInput) => setusername(newInput)}
           />
         </View>
         <View style={styles.inputContainer}>
           <InputField
             isSecure
             placeholderText="Password"
-            textChangeHandler={newInput => setpassword(newInput)}
+            textChangeHandler={(newInput) => setpassword(newInput)}
           />
         </View>
       </View>

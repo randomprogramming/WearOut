@@ -47,6 +47,9 @@ const API = {
   checkFollowStatus: function (followerId, followedId) {
     return SERVER_ADDRESS + `/api/is/${followerId}/following/${followedId}`;
   },
+  follow: function (followedId) {
+    return SERVER_ADDRESS + `/api/follow/${followedId}`;
+  },
 };
 
 export { COLORS, FONTS, ACTIONS, SCREEN_NAMES, API };

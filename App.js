@@ -9,12 +9,13 @@ import LoginRegisterStackPage from './views/LoginRegisterStackPage';
 
 const App = () => {
   const dispatch = useDispatch();
-  const accountData = useSelector(state => state.account);
+  const accountData = useSelector((state) => state.account);
 
-  const extractCurrentAccount = data => {
+  const extractCurrentAccount = (data) => {
     // If data is not empty, dispatch the data to the redux store and tell the app that the user is logged in
     if (data) {
-      axios.get(API.searchAccountByUsername(data.name)).then(res =>
+      console.log(data);
+      axios.get(API.searchAccountByUsername(data.name)).then((res) =>
         dispatch({
           type: ACTIONS.CHANGE_ACCOUNT,
           // as the payload we have to send the data and also data if the user is authenticated
@@ -36,12 +37,12 @@ const App = () => {
     //Fetch the csrf token and store it in the state when the app loads here
     axios
       .get(API.getCSRF)
-      .then(res =>
+      .then((res) =>
         dispatch({ type: ACTIONS.SET_CSRF_TOKEN, payload: res.data }),
       );
 
     //Get info about currently logged in account here
-    axios.get(API.getMe).then(res => extractCurrentAccount(res.data));
+    axios.get(API.getMe).then((res) => extractCurrentAccount(res.data));
   }, []);
 
   return (

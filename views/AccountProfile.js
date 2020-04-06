@@ -10,9 +10,19 @@ const AccountProfile = ({ route }) => {
   //route.params.id can be one of the 2 values: either "self" or a number, which represents the id of the person
   //on whos profile we currently are located
   const accountId = route.params.id;
-  const selfAccount = useSelector((state) => state.account);
+  const selfAccountUsername = useSelector((state) => state.account.username);
+  const [selfAccount, setselfAccount] = useState({});
   const [activeAccount, setactiveAccount] = useState({});
   const [isFollowing, setisFollowing] = useState(false);
+
+  const handleFollow = () => {
+    // console.log('active' + JSON.stringify(activeAccount));
+    // console.log('self' + JSON.stringify(selfAccount));
+    axios
+      .get(API.follow(activeAccount.id))
+      .then((res) => checkFollowingStatus(selfAccount.id, activeAccount.id))
+      .catch((err) => console.log('error'));
+  };
 
   const checkFollowingStatus = (followerId, followingId) => {
     axios
@@ -20,6 +30,12 @@ const AccountProfile = ({ route }) => {
       .then((res) => setisFollowing(res.data))
       .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    axios
+      .get(API.searchAccountByUsername(selfAccountUsername))
+      .then((res) => setselfAccount(res.data));
+  }, []);
 
   useEffect(() => {
     //this could be written a bit neater if we had the ID of the currently logged in user,
@@ -37,8 +53,8 @@ const AccountProfile = ({ route }) => {
   }, []);
 
   useEffect(() => {
-    if (activeAccount.id && selfAccount.id) {
-      checkFollowingStatus(activeAccount.id, selfAccount.id);
+    if (selfAccount.id && activeAccount.id) {
+      checkFollowingStatus(selfAccount.id, activeAccount.id);
     }
   }, [activeAccount, selfAccount]);
 
@@ -93,7 +109,7 @@ const AccountProfile = ({ route }) => {
             onPress={() => console.log('unfollow')}
           />
         ) : (
-          <CustomButton title="Follow" onPress={() => console.log('follow')} />
+          <CustomButton title="Follow" onPress={() => handleFollow()} />
         )}
       </View>
     </View>
