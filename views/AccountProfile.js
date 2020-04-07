@@ -10,24 +10,24 @@ const AccountProfile = ({ route }) => {
   //route.params.id can be one of the 2 values: either "self" or a number, which represents the id of the person
   //on whos profile we currently are located
   const accountId = route.params.id;
-  const selfAccountUsername = useSelector((state) => state.account.username);
+  const selfAccountUsername = useSelector(state => state.account.username);
   // const [selfAccount, setselfAccount] = useState({});
-  const selfAccount = useSelector((state) => state.account);
+  const selfAccount = useSelector(state => state.account);
   const [activeAccount, setactiveAccount] = useState({});
   const [isFollowing, setisFollowing] = useState(false);
 
   const handleFollow = () => {
     axios
-      .get(API.follow(activeAccount.id))
-      .then((res) => checkFollowingStatus(selfAccount.id, activeAccount.id))
-      .catch((err) => console.log('error'));
+      .get(API.changeFollowStatus(activeAccount.id))
+      .then(res => checkFollowingStatus(selfAccount.id, activeAccount.id))
+      .catch(err => console.log('error'));
   };
 
   const checkFollowingStatus = (followerId, followingId) => {
     axios
       .get(API.checkFollowStatus(followerId, followingId))
-      .then((res) => setisFollowing(res.data))
-      .catch((err) => console.log(err));
+      .then(res => setisFollowing(res.data))
+      .catch(err => console.log(err));
   };
 
   useEffect(() => {
@@ -40,8 +40,8 @@ const AccountProfile = ({ route }) => {
       //else we search for the user by id
       axios
         .get(API.searchAccountById(accountId))
-        .then((res) => setactiveAccount(res.data))
-        .catch((err) => console.log('account not found'));
+        .then(res => setactiveAccount(res.data))
+        .catch(err => console.log('account not found'));
     }
   }, []);
 
@@ -49,7 +49,6 @@ const AccountProfile = ({ route }) => {
     if (selfAccount.id && activeAccount.id) {
       checkFollowingStatus(selfAccount.id, activeAccount.id);
     }
-    console.log(selfAccount);
   }, [activeAccount, selfAccount]);
 
   return (
@@ -98,10 +97,7 @@ const AccountProfile = ({ route }) => {
             : { marginTop: 15 }
         }>
         {isFollowing ? (
-          <CustomButton
-            title="Unfollow"
-            onPress={() => console.log('unfollow')}
-          />
+          <CustomButton title="Unfollow" onPress={() => handleFollow()} />
         ) : (
           <CustomButton title="Follow" onPress={() => handleFollow()} />
         )}

@@ -19,9 +19,9 @@ const Login = ({ navigation }) => {
   const [password, setpassword] = useState('');
 
   const dispatch = useDispatch();
-  const csrf = useSelector((state) => state.csrf);
+  const csrf = useSelector(state => state.csrf);
 
-  const extractCurrentAccount = (data) => {
+  const extractCurrentAccount = data => {
     // If data is not empty, dispatch the data to the redux store and tell the app that the user is logged in
     if (data) {
       dispatch({
@@ -38,7 +38,7 @@ const Login = ({ navigation }) => {
     console.log(isAuthenticated);
     axios
       .get(API.searchAccountByUsername(username))
-      .then((res) =>
+      .then(res =>
         dispatch(
           accountActions.changeAccount({ ...res.data, isAuthenticated }),
         ),
@@ -53,7 +53,7 @@ const Login = ({ navigation }) => {
     //     .get(API.searchAccountByUsername(res.data.name))
     //     .then((accRes) => dispatch(accountActions.changeAccount(accRes)));
     // });
-    axios.get(API.getMe).then((meRes) => {
+    axios.get(API.getMe).then(meRes => {
       if (meRes.data.name) {
         updateUser(meRes.data.authenticated, meRes.data.name);
       }
@@ -79,26 +79,20 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.main}>
       <View>
-        <Text
-          style={styles.logoContainer}
-          onPress={(e) =>
-            axios.get(API.getMe).then((res) => console.log(res.data))
-          }>
-          Wo
-        </Text>
+        <Text style={styles.logoContainer}>Wo</Text>
       </View>
       <View>
         <View style={styles.inputContainer}>
           <InputField
             placeholderText="Username"
-            textChangeHandler={(newInput) => setusername(newInput)}
+            textChangeHandler={newInput => setusername(newInput)}
           />
         </View>
         <View style={styles.inputContainer}>
           <InputField
             isSecure
             placeholderText="Password"
-            textChangeHandler={(newInput) => setpassword(newInput)}
+            textChangeHandler={newInput => setpassword(newInput)}
           />
         </View>
       </View>
