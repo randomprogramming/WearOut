@@ -41,7 +41,7 @@ const AccountProfile = ({ route }) => {
       .get(API.changeFollowStatus(activeAccount.id))
       .then(res => checkFollowingStatus(selfAccount.id, activeAccount.id))
       // when the user follows someone, we want to update their profile
-      .then(() => fetchSelfAccount())
+      // .then(() => fetchSelfAccount())
       .catch(err => console.log('error'));
   };
 
@@ -51,6 +51,10 @@ const AccountProfile = ({ route }) => {
       .then(res => setisFollowing(res.data))
       .catch(err => console.log(err));
   };
+
+  useEffect(() => {
+    // fetchSelfAccount();
+  }, [isFollowing]);
 
   useEffect(() => {
     //this could be written a bit neater if we had the ID of the currently logged in user,
@@ -65,7 +69,7 @@ const AccountProfile = ({ route }) => {
         .then(res => setactiveAccount(res.data))
         .catch(err => console.log('account not found'));
     }
-  }, []);
+  }, [isFollowing]);
 
   useEffect(() => {
     if (selfAccount.id && activeAccount.id) {
