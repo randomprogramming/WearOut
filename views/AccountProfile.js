@@ -1,25 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { COLORS, API, FONTS } from '../global_state/constants';
 import CustomButton from '../components/input/CustomButton';
+import accountActions from '../global_state/actions/accountActions';
 
 const AccountProfile = ({ route }) => {
   //route.params.id can be one of the 2 values: either "self" or a number, which represents the id of the person
   //on whos profile we currently are located
   const accountId = route.params.id;
-  const selfAccountUsername = useSelector(state => state.account.username);
-  // const [selfAccount, setselfAccount] = useState({});
   const selfAccount = useSelector(state => state.account);
   const [activeAccount, setactiveAccount] = useState({});
   const [isFollowing, setisFollowing] = useState(false);
+  const dispatch = useDispatch();
+
+  const updateUser = (isAuthenticated, username) => {
+    axios
+      .get(API.searchAccountByUsername(username))
+      .then(res =>
+        dispatch(
+          accountActions.changeAccount({ ...res.data, isAuthenticated }),
+        ),
+      );
+  };
+
+  const fetchSelfAccount = () => {
+    // TODO: Figure out how to make this function and the updateUser function global
+    // don't know how to do this yet since dispatch needs to be used inside of a react functional component
+    axios.get(API.getMe).then(meRes => {
+      if (meRes.data.name) {
+        updateUser(meRes.data.authenticated, meRes.data.name);
+      }
+    });
+  };
 
   const handleFollow = () => {
     axios
       .get(API.changeFollowStatus(activeAccount.id))
       .then(res => checkFollowingStatus(selfAccount.id, activeAccount.id))
+      // when the user follows someone, we want to update their profile
+      .then(() => fetchSelfAccount())
       .catch(err => console.log('error'));
   };
 
@@ -70,13 +92,15 @@ const AccountProfile = ({ route }) => {
           <View>
             <Text style={styles.accountNumbersText}>Followers</Text>
             <Text style={styles.accountNumbersNumber}>
-              {activeAccount.followedBy ? activeAccount.followedBy.length : 0}
+              {activeAccount.followedByCount
+                ? activeAccount.followedByCount
+                : 0}
             </Text>
           </View>
           <View>
             <Text style={styles.accountNumbersText}>Following</Text>
             <Text style={styles.accountNumbersNumber}>
-              {activeAccount.following ? activeAccount.following.length : 0}
+              {activeAccount.followingCount ? activeAccount.followingCount : 0}
             </Text>
           </View>
         </View>

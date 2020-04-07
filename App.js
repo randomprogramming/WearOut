@@ -10,12 +10,12 @@ import accountActions from './global_state/actions/accountActions';
 
 const App = () => {
   const dispatch = useDispatch();
-  const accountData = useSelector((state) => state.account);
+  const accountData = useSelector(state => state.account);
 
-  const extractCurrentAccount = (data) => {
+  const extractCurrentAccount = data => {
     // If data is not empty, dispatch the data to the redux store and tell the app that the user is logged in
     if (data) {
-      axios.get(API.searchAccountByUsername(data.name)).then((res) =>
+      axios.get(API.searchAccountByUsername(data.name)).then(res =>
         dispatch({
           type: ACTIONS.CHANGE_ACCOUNT,
           // as the payload we have to send the data and also data if the user is authenticated
@@ -36,7 +36,7 @@ const App = () => {
   const updateUser = (isAuthenticated, username) => {
     axios
       .get(API.searchAccountByUsername(username))
-      .then((res) =>
+      .then(res =>
         dispatch(
           accountActions.changeAccount({ ...res.data, isAuthenticated }),
         ),
@@ -47,17 +47,12 @@ const App = () => {
     //Fetch the csrf token and store it in the state when the app loads here
     axios
       .get(API.getCSRF)
-      .then((res) =>
+      .then(res =>
         dispatch({ type: ACTIONS.SET_CSRF_TOKEN, payload: res.data }),
       );
 
     //Get info about currently logged in account here
-    // axios.get(API.getMe).then((res) => {
-    //   axios
-    //     .get(API.searchAccountByUsername(res.data.name))
-    //     .then((accRes) => dispatch(accountActions.changeAccount(accRes)));
-    // });
-    axios.get(API.getMe).then((meRes) => {
+    axios.get(API.getMe).then(meRes => {
       if (meRes.data.name) {
         updateUser(meRes.data.authenticated, meRes.data.name);
       }
