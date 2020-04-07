@@ -12,27 +12,6 @@ const App = () => {
   const dispatch = useDispatch();
   const accountData = useSelector(state => state.account);
 
-  const extractCurrentAccount = data => {
-    // If data is not empty, dispatch the data to the redux store and tell the app that the user is logged in
-    if (data) {
-      axios.get(API.searchAccountByUsername(data.name)).then(res =>
-        dispatch({
-          type: ACTIONS.CHANGE_ACCOUNT,
-          // as the payload we have to send the data and also data if the user is authenticated
-          // we also set the isLoaded property to true so that we can check when the data is loaded
-          // this will be used for animation and stuff later
-          payload: {
-            ...{
-              authenticated: data.authenticated,
-              isLoaded: true,
-            },
-            ...res.data,
-          },
-        }),
-      );
-    }
-  };
-
   const updateUser = (isAuthenticated, username) => {
     axios
       .get(API.searchAccountByUsername(username))
@@ -65,7 +44,6 @@ const App = () => {
         backgroundColor={COLORS.MAIN_BACKGROUND}
         barStyle="dark-content"
       />
-      {console.log(accountData)}
       {accountData.isAuthenticated ? (
         <Homescreen />
       ) : (

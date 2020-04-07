@@ -21,19 +21,6 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const csrf = useSelector(state => state.csrf);
 
-  const extractCurrentAccount = data => {
-    // If data is not empty, dispatch the data to the redux store and tell the app that the user is logged in
-    if (data) {
-      dispatch({
-        type: ACTIONS.CHANGE_ACCOUNT,
-        payload: {
-          username: data.name,
-          authenticated: data.authenticated,
-        },
-      });
-    }
-  };
-
   const updateUser = (isAuthenticated, username) => {
     console.log(isAuthenticated);
     axios
@@ -48,11 +35,6 @@ const Login = ({ navigation }) => {
   const checkLoginStatus = () => {
     // Make a request to the server and check if the user is logged in
     //Get info about currently logged in account here
-    // axios.get(API.getMe).then((res) => {
-    //   axios
-    //     .get(API.searchAccountByUsername(res.data.name))
-    //     .then((accRes) => dispatch(accountActions.changeAccount(accRes)));
-    // });
     axios.get(API.getMe).then(meRes => {
       if (meRes.data.name) {
         updateUser(meRes.data.authenticated, meRes.data.name);
