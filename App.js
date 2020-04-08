@@ -12,7 +12,7 @@ const App = () => {
   const dispatch = useDispatch();
   const accountData = useSelector(state => state.account);
 
-  const updateUser = (isAuthenticated, username) => {
+  const updateSelfAccount = (isAuthenticated, username) => {
     axios
       .get(API.searchAccountByUsername(username))
       .then(res =>
@@ -20,6 +20,14 @@ const App = () => {
           accountActions.changeAccount({ ...res.data, isAuthenticated }),
         ),
       );
+  };
+
+  const fetchSelfAccount = () => {
+    axios.get(API.getMe).then(meRes => {
+      if (meRes.data.name) {
+        updateSelfAccount(meRes.data.authenticated, meRes.data.name);
+      }
+    });
   };
 
   useEffect(() => {
@@ -31,11 +39,7 @@ const App = () => {
       );
 
     //Get info about currently logged in account here
-    axios.get(API.getMe).then(meRes => {
-      if (meRes.data.name) {
-        updateUser(meRes.data.authenticated, meRes.data.name);
-      }
-    });
+    fetchSelfAccount();
   }, []);
 
   return (

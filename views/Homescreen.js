@@ -9,6 +9,8 @@ import UserFeed from '../views/UserFeed';
 import Search from '../views/Search';
 import AccountProfile from '../views/AccountProfile';
 import Streetwear from './Streetwear';
+import CreatePost from './CreatePost';
+import Activity from './Activity';
 
 const MainTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -53,7 +55,6 @@ const Homescreen = () => {
         initialRouteName={SCREEN_NAMES.HOME}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
-            // TODO: Rewrite this so that we can add new tabs in only one place, instead of adding a icon and a tab.screen
             //Depending on the tab name, return a icon to match that tab and show it in the bottom bar
             switch (route.name) {
               case SCREEN_NAMES.HOME:
@@ -70,6 +71,22 @@ const Homescreen = () => {
                 return (
                   <AntDesignIcon
                     name="search1"
+                    size={size}
+                    color={focused ? COLORS.ACCENT_COLOR : COLORS.TEXT_COLOR}
+                  />
+                );
+              case SCREEN_NAMES.CREATE_POST:
+                return (
+                  <AntDesignIcon
+                    name="plus"
+                    size={size}
+                    color={focused ? COLORS.ACCENT_COLOR : COLORS.TEXT_COLOR}
+                  />
+                );
+              case SCREEN_NAMES.ACTIVITY:
+                return (
+                  <AntDesignIcon
+                    name="bars"
                     size={size}
                     color={focused ? COLORS.ACCENT_COLOR : COLORS.TEXT_COLOR}
                   />
@@ -101,6 +118,11 @@ const Homescreen = () => {
         }}>
         <MainTab.Screen name={SCREEN_NAMES.HOME} component={UserFeed} />
         <MainTab.Screen name={SCREEN_NAMES.SEARCH} component={SearchPage} />
+        <MainTab.Screen
+          name={SCREEN_NAMES.CREATE_POST}
+          component={CreatePost}
+        />
+        <MainTab.Screen name={SCREEN_NAMES.ACTIVITY} component={Activity} />
         <MainTab.Screen
           name={SCREEN_NAMES.ACCOUNT_PROFILE}
           component={ProfilePageStack}

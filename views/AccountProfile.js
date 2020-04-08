@@ -53,14 +53,10 @@ const AccountProfile = ({ route }) => {
   };
 
   useEffect(() => {
-    // fetchSelfAccount();
-  }, [isFollowing]);
-
-  useEffect(() => {
-    //this could be written a bit neater if we had the ID of the currently logged in user,
-    //but since we don't this will work just fine too.
+    // whenever isFollowing changes, we want to fetch the data again.
     if (accountId === 'self') {
       //if accountId is "self", it means that the user is looking at their own profile
+      //TODO: Update the self account in the redux store when user follows a new account
       setactiveAccount(selfAccount);
     } else {
       //else we search for the user by id

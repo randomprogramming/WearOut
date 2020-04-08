@@ -17,6 +17,8 @@ const ACTIONS = {
 const SCREEN_NAMES = {
   HOME: 'Home',
   SEARCH: 'Search',
+  CREATE_POST: 'Create_Post',
+  ACTIVITY: 'Activity',
   STREETWEAR_RESULTS: 'Streetwear',
   PEOPLE_RESULTS: 'People',
   LOGIN: 'Login',
