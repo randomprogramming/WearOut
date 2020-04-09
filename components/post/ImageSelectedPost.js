@@ -48,6 +48,7 @@ const ImageSelectedPost = ({ selectedImage }) => {
             placeholder="Description..."
             style={styles.descriptionInput}
             value={descriptionInputText}
+            // TODO: Don't let user type more than 280 characters since that's the limit (for now..)
             onChangeText={newText => setdescriptionInputText(newText)}
           />
         </View>

@@ -87,7 +87,7 @@ const AccountProfile = ({ route }) => {
             <Text style={styles.accountNumbersText}>Posts</Text>
             <Text style={styles.accountNumbersNumber}>
               {/* //TODO: Implement post count */}
-              {activeAccount.posts ? activeAccount.posts.length : 0}
+              {activeAccount.postCount ? activeAccount.postCount : 0}
             </Text>
           </View>
           <View>
