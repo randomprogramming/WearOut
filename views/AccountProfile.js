@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -13,6 +13,7 @@ const AccountProfile = ({ route }) => {
   const accountId = route.params.id;
   const selfAccount = useSelector(state => state.account);
   const [activeAccount, setactiveAccount] = useState({});
+  const [activeAccountPosts, setactiveAccountPosts] = useState([]);
   const [isFollowing, setisFollowing] = useState(false);
   const dispatch = useDispatch();
 
@@ -52,6 +53,13 @@ const AccountProfile = ({ route }) => {
       .catch(err => console.log(err));
   };
 
+  const fetchPostsFor = username => {
+    axios
+      .get(API.getPostsFor(username))
+      .then(res => setactiveAccountPosts(res.data))
+      .catch(err => console.log(err));
+  };
+
   useEffect(() => {
     // whenever isFollowing changes, we want to fetch the data again.
     if (accountId === 'self') {
@@ -73,8 +81,14 @@ const AccountProfile = ({ route }) => {
     }
   }, [activeAccount, selfAccount]);
 
+  useEffect(() => {
+    if (activeAccount.username) {
+      fetchPostsFor(activeAccount.username);
+    }
+  }, [activeAccount]);
+
   return (
-    <View style={styles.main}>
+    <ScrollView style={styles.main}>
       <View style={styles.infoContainer}>
         <View>
           <Image
@@ -127,7 +141,19 @@ const AccountProfile = ({ route }) => {
           <CustomButton title="Follow" onPress={() => handleFollow()} />
         )}
       </View>
-    </View>
+      <View>
+        {activeAccountPosts.map((post, i) => {
+          return (
+            <View>
+              <Image
+                source={{ uri: post.linkToImage }}
+                style={{ height: 50, width: 50 }}
+              />
+            </View>
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 

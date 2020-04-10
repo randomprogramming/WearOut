@@ -53,6 +53,9 @@ const API = {
     return SERVER_ADDRESS + `/api/changefollowstatus/${followedId}`;
   },
   createPost: SERVER_ADDRESS + '/api/createpost',
+  getPostsFor: function(username) {
+    return SERVER_ADDRESS + `/api/getposts/${username}`;
+  },
 };
 
 export { COLORS, FONTS, ACTIONS, SCREEN_NAMES, API };
