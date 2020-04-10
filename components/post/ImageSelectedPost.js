@@ -44,7 +44,7 @@ const ImageSelectedPost = ({ selectedImage }) => {
         <View>
           <TextInput
             multiline
-            numberOfLines={3}
+            numberOfLines={1}
             placeholder="Description..."
             style={styles.descriptionInput}
             value={descriptionInputText}
