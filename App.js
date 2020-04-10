@@ -30,14 +30,23 @@ const App = () => {
     });
   };
 
-  useEffect(() => {
+  const fetchCSRF = () => {
     //Fetch the csrf token and store it in the state when the app loads here
-    axios
-      .get(API.getCSRF)
-      .then(res =>
-        dispatch({ type: ACTIONS.SET_CSRF_TOKEN, payload: res.data }),
-      );
+    axios.get(API.getCSRF).then(res =>
+      dispatch({
+        type: ACTIONS.SET_CSRF_TOKEN,
+        payload: res.data,
+      }),
+    );
+  };
 
+  useEffect(() => {
+    // we also want to fetch the csrf token when the user logs in, otherwise the server will give us a 403 for every request
+    fetchCSRF();
+  }, [accountData.isAuthenticated]);
+
+  useEffect(() => {
+    fetchCSRF();
     //Get info about currently logged in account here
     fetchSelfAccount();
   }, []);
