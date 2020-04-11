@@ -10,12 +10,12 @@ import {
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { COLORS, API, FONTS } from '../global_state/constants';
+import { COLORS, API, FONTS, SCREEN_NAMES } from '../global_state/constants';
 import CustomButton from '../components/input/CustomButton';
 import accountActions from '../global_state/actions/accountActions';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
-const AccountProfile = ({ route }) => {
+const AccountProfile = ({ route, navigation }) => {
   //route.params.id can be one of the 2 values: either "self" or a number, which represents the id of the person
   //on whos profile we currently are located
   const accountId = route.params.id;
@@ -154,8 +154,10 @@ const AccountProfile = ({ route }) => {
           return (
             <View key={post.id}>
               <TouchableHighlight
-                onPress={e => {
-                  console.log('hi');
+                onPress={() => {
+                  navigation.push(SCREEN_NAMES.POST_FEED, {
+                    data: activeAccountPosts,
+                  });
                 }}
                 activeOpacity={0.5}>
                 <Image

@@ -26,6 +26,7 @@ const SCREEN_NAMES = {
   ACCOUNT_PROFILE: 'Profile',
   ANOTHER_ACCOUNT_PROFILE: 'Another_Profile',
   STREETWEAR_PAGE: 'Streetwear_Page',
+  POST_FEED: 'Post_Feed',
 };
 const SERVER_ADDRESS = 'http://192.168.1.100:8080';
 const API = {

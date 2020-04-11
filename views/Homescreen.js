@@ -11,6 +11,7 @@ import AccountProfile from '../views/AccountProfile';
 import Streetwear from './Streetwear';
 import CreatePost from './CreatePost';
 import Activity from './Activity';
+import PostFeedStack from './PostFeedStack';
 
 const MainTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -44,6 +45,10 @@ const Homescreen = () => {
             name="default"
             component={AccountProfile}
             initialParams={{ id: 'self' }}
+          />
+          <Stack.Screen
+            name={SCREEN_NAMES.POST_FEED}
+            component={PostFeedStack}
           />
         </Stack.Navigator>
       </View>
