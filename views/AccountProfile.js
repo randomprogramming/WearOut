@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { COLORS, API, FONTS } from '../global_state/constants';
 import CustomButton from '../components/input/CustomButton';
 import accountActions from '../global_state/actions/accountActions';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 const AccountProfile = ({ route }) => {
   //route.params.id can be one of the 2 values: either "self" or a number, which represents the id of the person
@@ -141,14 +149,20 @@ const AccountProfile = ({ route }) => {
           <CustomButton title="Follow" onPress={() => handleFollow()} />
         )}
       </View>
-      <View>
+      <View style={styles.accountPostsContainer}>
         {activeAccountPosts.map((post, i) => {
           return (
-            <View>
-              <Image
-                source={{ uri: post.linkToImage }}
-                style={{ height: 50, width: 50 }}
-              />
+            <View key={post.id}>
+              <TouchableHighlight
+                onPress={e => {
+                  console.log('hi');
+                }}
+                activeOpacity={0.5}>
+                <Image
+                  source={{ uri: post.linkToImage }}
+                  style={styles.postImage}
+                />
+              </TouchableHighlight>
             </View>
           );
         })}
@@ -205,6 +219,20 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.REGULAR,
     fontSize: 14,
     color: COLORS.TEXT_COLOR,
+  },
+  accountPostsContainer: {
+    marginTop: 15,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  postImage: {
+    // we want to desplay 3 images in each row
+    // since each image has a margin of 1, in total the margin is equal to 6
+    // we subtract that margin from the total device width, and we divide by 3
+    // so that each image gets exactly a third of available space
+    height: (Dimensions.get('window').width - 6) / 3,
+    width: (Dimensions.get('window').width - 6) / 3,
+    margin: 1,
   },
 });
 
