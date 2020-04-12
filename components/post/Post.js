@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 import { FONTS, COLORS, SCREEN_NAMES } from '../../global_state/constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const headerHeight = 34;
+const iconSize = 30;
 
 const Post = ({
   id,
@@ -39,11 +41,29 @@ const Post = ({
       <View>
         <Image source={{ uri: linkToImage }} style={styles.postImage} />
       </View>
+      <View style={styles.postActionsContainer}>
+        <AntDesignIcon.Button
+          name="staro"
+          size={iconSize}
+          color={COLORS.TEXT_COLOR}
+          backgroundColor="transparent"
+          underlayColor="transparent"
+        />
+        <AntDesignIcon.Button
+          name="message1"
+          size={iconSize}
+          color={COLORS.TEXT_COLOR}
+          backgroundColor="transparent"
+          underlayColor="transparent"
+        />
+      </View>
       <View>
         <Text style={styles.likeCountText}>{numberOfLikes} likes</Text>
       </View>
-      <View>
-        <Text>This</Text>
+      <View style={styles.descriptionContainer}>
+        <Text style={styles.descriptionText}>
+          <Text style={styles.authorNameText}>{authorUsername}</Text> {text}
+        </Text>
       </View>
     </View>
   );
@@ -82,6 +102,22 @@ const styles = StyleSheet.create({
     color: COLORS.TEXT_COLOR,
     marginLeft: 7,
     marginVertical: 4,
+  },
+  postActionsContainer: {
+    marginVertical: 4,
+    marginHorizontal: 7,
+    flexDirection: 'row',
+  },
+  descriptionContainer: {
+    marginLeft: 7,
+  },
+  authorNameText: {
+    fontFamily: FONTS.BOLD,
+    color: COLORS.TEXT_COLOR,
+  },
+  descriptionText: {
+    fontFamily: FONTS.REGULAR,
+    color: COLORS.TEXT_COLOR,
   },
 });
 
